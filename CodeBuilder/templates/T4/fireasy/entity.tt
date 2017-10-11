@@ -1,0 +1,208 @@
+<#@ template hostSpecific="true" debug="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="public\base.tt" #>
+<# 
+    TemplateHost host = (TemplateHost)Host;
+    var table = host.Current;
+#>
+// **************************************
+// 生成：CodeBuilder (http://www.fireasy.cn/codebuilder)
+// 项目：<#= host.Profile.ProjectName #>
+// 版权：Copyright <#= host.Profile.CompanyName #>
+// 作者：<#= host.Profile.Author #>
+// 时间：<#= DateTime.Now #>
+// **************************************
+using System;
+using Fireasy.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+
+namespace <#= host.Profile.Namespace #>.Models
+{
+<#
+if (host.Profile.EntityMode == EntityMode.LighEntity)
+{
+#>
+    /// <summary>
+    /// <#= table.Description #> 实体类。
+    /// </summary>
+    [Serializable]
+    [EntityMapping("<#= table.Name #>", Description = "<#= table.Description #>")]
+    [MetadataType(typeof(<#= table.ClassName #>Metadata))]
+    public partial class <#= table.ClassName #> : LightEntity<<#= table.ClassName #>>
+    {
+<#
+	foreach (var column in table.Columns)
+	{
+	    var propertyType = GetPropertyTypeForCsharp(column);
+#>
+        /// <summary>
+        /// 获取或设置<#= column.Description #>。
+        /// </summary>
+
+        [PropertyMapping(ColumnName = "<#= column.Name #>", Description = "<#= column.Description #>", <#= column.AutoIncrement ? "GenerateType = IdentityGenerateType.AutoIncrement, " : string.Empty #><#= column.IsPrimaryKey ? "IsPrimaryKey = true, " : string.Empty #><#= CheckDelFlag(column) ? "IsDeletedKey = true, " : string.Empty #><#= propertyType == "string" && column.Length != null ? "Length = " + column.Length + ", " : (propertyType == "decimal" || propertyType == "decimal?" ? "Precision = " + column.Precision + ", Scale = " + column.Scale + ", ": string.Empty) #>IsNullable = <#= column.IsNullable ? "true" : "false" #>)]
+        public virtual <#= propertyType #> <#= column.PropertyName #> { get; set; }
+
+<#
+	}
+	
+	foreach (var fk in table.ForeignKeys)
+	{
+#>
+        /// <summary>
+        /// 获取或设置关联 <see cref="<#= fk.PkTable.ClassName #>"/> 对象。
+        /// </summary>
+        public virtual <#= fk.PkTable.ClassName #> <#= fk.PkTable.ClassName #> { get; set; }
+
+<#
+	}
+	
+	foreach (var fk in table.SubKeys)
+	{
+#>
+        /// <summary>
+        /// 获取或设置 <see cref="<#= fk.FkTable.ClassName #>"/> 的子实体集。
+        /// </summary>
+        public virtual EntitySet<<#= fk.FkTable.ClassName #>> <#= StringExtension.ToPlural(fk.FkTable.ClassName) #> { get; set; }
+
+<#
+	}
+#>
+    }
+<#
+}
+else
+{
+#>
+    /// <summary>
+    /// <#= table.Description #> 实体类。
+    /// </summary>
+    [Serializable]
+    [EntityMapping("<#= table.Name #>", Description = "<#= table.Description #>")]
+    [MetadataType(typeof(<#= table.ClassName #>Metadata))]
+    public partial class <#= table.ClassName #> : EntityObject
+    {
+        #region 依赖属性
+<#
+	foreach (var column in table.Columns)
+	{
+		var propertyType = GetPropertyTypeForCsharp(column);
+#>
+        /// <summary>
+        /// <#= column.PropertyName #>的依赖属性。
+        /// </summary>
+        public static readonly IProperty Ep<#= column.PropertyName #> = PropertyUnity.RegisterProperty<<#= table.ClassName #>>(s => s.<#= column.PropertyName #>, new PropertyMapInfo { FieldName = "<#= column.Name #>", Description = "<#= column.Description #>", <#= column.IsPrimaryKey ? "IsPrimaryKey = true, " : string.Empty #><#= CheckDelFlag(column) ? "IsDeletedKey = true, " : string.Empty #><#= propertyType == "string" && column.Length != null ? "Length = " + column.Length + ", " : (propertyType == "decimal" || propertyType == "decimal?" ? "Precision = " + column.Precision + ", Scale = " + column.Scale + ", ": string.Empty) #>IsNullable = <#= column.IsNullable ? "true" : "false" #> });
+
+<#
+	}
+	
+	foreach (var fk in table.ForeignKeys)
+	{
+#>
+        /// <summary>
+        /// 与 <see cref="<#= fk.PkTable.ClassName #>"/> 关联的依赖属性。
+        /// </summary>
+        public static readonly IProperty Ep<#= fk.PkTable.ClassName #> = PropertyUnity.RegisterSupposedProperty<<#= table.ClassName #>>(s => s.<#= fk.PkTable.ClassName #>);
+        
+<#
+    }
+	
+	foreach (var fk in table.SubKeys)
+	{
+#>
+        /// <summary>
+        /// 与 <see cref="<#= fk.FkTable.ClassName #>"/> 关联的依赖属性。
+        /// </summary>
+        public static readonly IProperty Ep<#= StringExtension.ToPlural(fk.FkTable.ClassName) #> = PropertyUnity.RegisterSupposedProperty<<#= table.ClassName #>>(s => s.<#= StringExtension.ToPlural(fk.FkTable.ClassName) #>);
+        
+<#
+    }
+#>
+        #endregion
+        
+<#
+
+	foreach (var column in table.Columns)
+	{
+	    var propertyType = GetPropertyTypeForCsharp(column);
+#>
+        /// <summary>
+        /// 获取或设置<#= column.Description #>。
+        /// </summary>
+        public <#= propertyType #> <#= column.PropertyName #>
+        {
+            get { return (<#= propertyType #>)GetValue(Ep<#= column.PropertyName #>); }
+            set { SetValue(Ep<#= column.PropertyName #>, value); }
+        }
+
+<#
+	}
+	
+	foreach (var fk in table.ForeignKeys)
+	{
+#>
+        /// <summary>
+        /// 获取或设置关联的 <#= fk.PkTable.ClassName #>。
+        /// </summary>
+        public <#= fk.PkTable.ClassName #> <#= fk.PkTable.ClassName #>
+        {
+            get { return GetValue<<#= fk.PkTable.ClassName #>>(Ep<#= fk.PkTable.ClassName #>); }
+            set { SetValue<<#= fk.PkTable.ClassName #>>(Ep<#= fk.PkTable.ClassName #>, value); }
+        }
+        
+<#
+    }
+	
+	foreach (var fk in table.SubKeys)
+	{
+#>
+        /// <summary>
+        /// 获取或设置 <#= fk.FkTable.ClassName #> 子集。
+        /// </summary>
+        public EntitySet<<#= fk.FkTable.ClassName #>> <#= StringExtension.ToPlural(fk.FkTable.ClassName) #>
+        {
+            get { return GetValue<EntitySet<<#= fk.PkTable.ClassName #>>>(Ep<#= StringExtension.ToPlural(fk.FkTable.ClassName) #>); }
+            set { SetValue<EntitySet<<#= fk.PkTable.ClassName #>>>(Ep<#= StringExtension.ToPlural(fk.FkTable.ClassName) #>, value); }
+        }
+        
+<#
+    }
+#>
+
+    }
+<#
+}
+#>
+	
+    public class <#= table.ClassName #>Metadata
+    {
+<#
+	foreach (var column in table.Columns)
+	{
+#>
+        /// <summary>
+        /// 属性 <#= column.PropertyName #> 的验证特性。
+        /// </summary><#= GetValidationAttribute(column) #>
+        public object <#= column.PropertyName #> { get; set; }
+
+<#
+	}
+#>
+    }
+}
+
+<#+
+//获取列的验证特性
+private static string GetValidationAttribute(Column column)
+{
+    var sb = new StringBuilder();
+    if (!column.IsNullable && column.Name.ToLower() != "delflag" && string.IsNullOrEmpty(column.DefaultValue))
+    {
+        sb.Append("\r\n        [Required]");
+    }
+    if (GetPropertyTypeForCsharp(column).ToLower() == "string" && column.Length != null)
+    {
+        sb.Append("\r\n        [StringLength(" + column.Length + ")]");
+    }
+    return sb.ToString();
+ }
+#>

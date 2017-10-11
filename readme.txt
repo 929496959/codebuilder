@@ -1,0 +1,1 @@
+CodeBuilder是一个通过获取数据库表和字段定义，通过模板转换生成三层结构、实体模型、MVC控制器和视图等代码的工具，它与其他同类代码生成器先进之处在于，它具有高度灵活性，可以自己编写代码来扩展工具，以满足不同开发者的需求。支持 SqlServer、Oracle、MySQL、SQLite、PostgreSQL、Firebird，或 OleDb 提供的驱动，而是还可以使用 Power Designer 文档。表和字段的属性可以通过代码文件来扩展，可自定义的变量，然后在模板里使用。提供 T4 和 Razor 两种模板引擎。

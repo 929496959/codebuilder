@@ -1,0 +1,23 @@
+{
+    "Name": "原型",
+    "Author": null,
+    "Version": 0,
+    "Description": null,
+    "Partitions": [
+        {
+            "Name": "列表页面",
+            "FileName": "listpage.tt",
+            "Output": "{ClassName}_List.htm",
+            "Loop": "Tables",
+            "Syntax": "ASP/XHTML"
+        },
+        {
+            "Name": "编辑页面",
+            "FileName": "editpage.tt",
+            "Output": "{ClassName}_Edit.htm",
+            "Loop": "Tables",
+            "Syntax": "ASP/XHTML"
+        }
+    ],
+    "Groups": []
+}

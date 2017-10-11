@@ -1,0 +1,102 @@
+{
+    "Name": "Asp.Net 解决方案",
+    "Author": null,
+    "Version": 0,
+    "Description": null,
+    "Partitions": [
+        {
+            "Name": "解决方案",
+            "FileName": "solution.tt",
+            "Output": "{ProjectName}.sln",
+            "Loop": "None",
+            "Syntax": ""
+        }
+    ],
+	"Groups": [
+		{ 
+			Name: "数据层", 
+			Partitions: [
+				{
+					"Name": "数组层项目文件",
+					"FileName": "data_lay.tt",
+					"Output": "{Namespace}.Models\\{Namespace}.Models.csproj",
+					"Loop": "None",
+					"Syntax": ""
+				},
+				{ 
+					Name : "实体类",
+					FileName: "entity.tt",
+					Output: "{Namespace}.Models\\{ClassName}.cs",
+					Loop: "Tables",
+					Syntax: "C#"
+				},
+				{ 
+					Name : "实体类扩展",
+					FileName: "entity_ex.tt",
+					Output: "{Namespace}.Models\\{ClassName}_Ex.cs",
+					Loop: "Tables",
+					Syntax: "C#"
+				},
+				{
+					Name : "实体关系",
+					FileName: "relation.tt",
+					Output: "{Namespace}.Models\\Relationships.cs",
+					Loop: "None",
+					Syntax: "C#"
+				}
+			]
+		},
+		{ 
+			Name: "业务层", 
+			Partitions: [
+				{
+					"Name": "业务层项目文件",
+					"FileName": "business_lay.tt",
+					"Output": "{Namespace}.Bussiness\\{Namespace}.Bussiness.csproj",
+					"Loop": "None",
+					"Syntax": ""
+				},
+				{
+					Name : "上下文类",
+					FileName: "context.tt",
+					Output: "{Namespace}.Bussiness\\DbContext.cs",
+					Loop: "None",
+					Syntax: "C#"
+				}
+			]
+		},
+		{ 
+			Name: "界面层", 
+			Partitions: [
+				{
+					"Name": "界面层项目文件",
+					"FileName": "ui_lay.tt",
+					"Output": "{Namespace}.Web\\{Namespace}.Web.csproj",
+					"Loop": "None",
+					"Syntax": ""
+				},
+				{
+					Name : "控制器类",
+					FileName: "controller.tt",
+					Output: "{Namespace}.Web\\Areas\\{MvcArea}\\Controllers\\{ClassName}Controller.cs",
+					Loop: "Tables",
+					Syntax: "C#"
+				},
+				{
+					Name : "列表视图",
+					FileName: "listview.tt",
+					Output: "{Namespace}.Web\\Areas\\{MvcArea}\\Views\\{ClassName}\\List.cshtml",
+					Loop: "Tables",
+					Syntax: "ASP/XHTML"
+				},
+				{
+					Name : "编辑视图",
+					FileName: "editview.tt",
+					Output: "{Namespace}.Web\\Areas\\{MvcArea}\\Views\\{ClassName}\\Edit.cshtml",
+					Loop: "Tables",
+					Syntax: "ASP/XHTML"
+				}
+			]
+		}
+	]
+}

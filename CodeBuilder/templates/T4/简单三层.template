@@ -1,0 +1,29 @@
+{
+    "Name": "¼òµ¥Èý²ã",
+    "Author": null,
+    "Version": 0,
+    "Description": null,
+    "Partitions": [
+        {
+            "Name": "Model",
+            "FileName": "model.tt",
+            "Output": "Models\\{ClassName}.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "DAL",
+            "FileName": "dal.tt",
+            "Output": "DAL\\{ClassName}DAL.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "BLL",
+            "FileName": "bll.tt",
+            "Output": "BLL\\{ClassName}BLL.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        }
+    ]
+}

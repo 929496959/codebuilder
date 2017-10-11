@@ -1,0 +1,50 @@
+{
+    "Name": "Fireasy for c#",
+    "Author": null,
+    "Version": 0,
+    "Description": null,
+    "Partitions": [
+        {
+            "Name": "实体类",
+            "FileName": "entity.tt",
+            "Output": "Models\\{ClassName}.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "实体关系",
+            "FileName": "relation.tt",
+            "Output": "Models\\Relationships.cs",
+            "Loop": "None",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "上下文类",
+            "FileName": "context.tt",
+            "Output": "Data\\DbContext.cs",
+            "Loop": "None",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "控制器类",
+            "FileName": "controller.tt",
+            "Output": "Areas\\{MvcArea}\\Controllers\\{ClassName}Controller.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        },
+        {
+            "Name": "列表视图",
+            "FileName": "listview.tt",
+            "Output": "Areas\\{MvcArea}\\Views\\{ClassName}\\Index.cshtml",
+            "Loop": "Tables",
+            "Syntax": "ASP/XHTML"
+        },
+        {
+            "Name": "编辑视图",
+            "FileName": "editview.tt",
+            "Output": "Areas\\{MvcArea}\\Views\\{ClassName}\\Edit.cshtml",
+            "Loop": "Tables",
+            "Syntax": "ASP/XHTML"
+        }
+    ]
+}

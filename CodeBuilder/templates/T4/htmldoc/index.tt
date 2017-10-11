@@ -1,0 +1,52 @@
+<#@ template hostSpecific="true" debug="true" #>
+<#@ output extension=".cs" #>
+<# 
+    TemplateHost host = (TemplateHost)Host;
+#>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">数据库设计说明书</h1>
+<#
+foreach (var table in host.Tables)
+{
+#>
+        <h2><#= table.Name #><#= string.IsNullOrEmpty(table.Description) ? string.Empty : "(" + table.Description + ")" #></h2>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th class="text-center" style="width:160px">名称</th>
+                <th class="text-center" style="width:100px">是否主键</th>
+                <th class="text-center" style="width:100px">数据类型</th>
+                <th class="text-center" style="width:100px">长度</th>
+                <th class="text-center" style="width:100px">精度</th>
+                <th class="text-center" style="width:100px">小数位数</th>
+                <th class="text-center" style="width:100px">是否可空</th>
+                <th class="text-center">备注</th>
+            </tr>
+<#
+foreach (var column in table.Columns)
+{
+#>
+            <tr>
+                <td><#= column.Name #></td>
+                <td class="text-center"><#= column.IsPrimaryKey ? "是" : "否" #></td>
+                <td><#= column.DataType #></td> 
+                <td class="text-right"><#= column.Length == null ? "" : column.Length.ToString() #></td> 
+                <td class="text-right"><#= column.Precision == null ? "" : column.Precision.ToString() #></td> 
+                <td class="text-right"><#= column.Scale == null ? "" : column.Scale.ToString() #></td> 
+                <td class="text-center"><#= column.IsNullable ? "是" : "否" #></td>
+                <td><#= column.Description #></td>
+            </tr>
+<#
+}
+#>
+        </table>
+<#
+}
+#>
+    </div>
+</body>

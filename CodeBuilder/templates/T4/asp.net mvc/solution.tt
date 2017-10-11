@@ -1,0 +1,28 @@
+<#@ template hostSpecific="true" debug="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="public\base.tt" #>
+<# 
+    TemplateHost host = (TemplateHost)Host;
+#>
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<#= host.Profile.Namespace #>.Models", "<#= host.Profile.Namespace #>.Models\\<#= host.Profile.Namespace #>.Models.csproj", "{FD58CC8C-01D2-4A0C-BF53-0A93C7A947C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<#= host.Profile.Namespace #>.Business", "<#= host.Profile.Namespace #>.Business\\<#= host.Profile.Namespace #>.Business.csproj", "{94526A41-3019-4146-A157-FA2DB712B116}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<#= host.Profile.Namespace #>.Web", "<#= host.Profile.Namespace #>.Web\\<#= host.Profile.Namespace #>.Web.csproj", "{8A483AEF-EF77-4313-BCAB-B2E2769FBA30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

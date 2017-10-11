@@ -1,0 +1,20 @@
+{ 
+	Name : "Entity Framework 6",
+	Partitions : 
+	[
+		{ 
+			Name : "实体类",
+			FileName: "entity.tt",
+			Output: "Models\\{ClassName}.cs",
+			Loop: "Tables",
+			Syntax: "C#"
+		},
+		{
+			Name : "上下文类",
+			FileName: "context.tt",
+			Output: "Data\\DbContext.cs",
+			Loop: "None",
+			Syntax: "C#"
+		}
+	]
+}

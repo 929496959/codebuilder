@@ -1,0 +1,15 @@
+{
+    "Name": "HTMLÎÄµµ",
+    "Author": null,
+    "Version": 0,
+    "Description": null,
+    "Partitions": [
+        {
+            "Name": "Ö÷Ò³",
+            "FileName": "index.tt",
+            "Output": "index.html",
+            "Loop": "None",
+            "Syntax": "HTML"
+        }
+    ]
+}

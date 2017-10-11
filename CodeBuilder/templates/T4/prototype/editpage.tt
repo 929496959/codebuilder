@@ -1,0 +1,93 @@
+<#@ template hostSpecific="true" debug="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="public\base.tt" #>
+<# 
+    TemplateHost host = (TemplateHost)Host;
+    var table = host.Current;
+#>
+<html>
+<head>
+<title><#= table.Description #></title>
+<script src="scripts/jquery-1.11.3.min.js"></script>
+<script src="scripts/jquery.easyui.min-1.4.2.js"></script>
+<script src="scripts/locale/easyui-lang-zh_CN.js"></script>
+<script src="scripts/jquery.easyui.extend.js"></script>
+<script src="scripts/lhgdialog.js"></script>
+<script src="scripts/common.js"></script>
+<link href="content/themes/bootstrap/easyui.css" rel="stylesheet"/>
+<link href="content/skins/flat.css" rel="stylesheet"/>
+<link href="content/main.css" rel="stylesheet"/>
+<link href="content/easyui-big.css" rel="stylesheet"/>
+<link href="content/font-awesome.css" rel="stylesheet"/>
+<link href="content/easyui-font-icon.css" rel="stylesheet"/>
+</head>
+<script type="text/javascript">
+    var id = '';
+    $(function () {
+        loadInfo();
+    });
+
+    //加载信息
+    function loadInfo() {
+        if (id != '') {
+            $.getJSON('Data?id=' + id, function (data) {
+                common.processResult(data, function () {
+                    $('#form1').form('load', data);
+                });
+            });
+
+            $('#btnSaveAndNew').remove();
+        }
+    }
+
+    //保存信息
+    function saveInfo(isNew) {
+        if (!$('#form1').form('validate')) {
+            return;
+        }
+
+        var postData = new Object();
+
+        //将表单填充的内容序列化为json
+        var data = $('#form1').form('save');
+        postData["info"] = JSON.stringify(data);
+
+        common.showProcess();
+        $.post('Save?id=' + id, postData, function (result) {
+            common.processResult(result, function () {
+                if (isNew) {
+                    $('#form1').form('clear');
+                }
+
+                id = isNew ? '' : result.data;
+                common.setReturnValue(true);
+            });
+        });
+    }
+</script>
+<div data-options="region:'center',border:false">
+    <table class="form-body">
+<#
+foreach (dynamic column in table.Columns)
+{
+    if (column.IsPrimaryKey || !column.GenerateField)
+    {
+        continue;
+    }
+#>
+        <tr>
+            <td class="addon"><#= column.Description #></td>
+            <td><input class="easyui-textbox" data-options="width:220" /></td>
+        </tr>
+<#
+}
+#>        
+    </table>
+</div>
+<div data-options="region:'south',border:false" class="form-button">
+    <a class="easyui-linkbutton" onclick="saveInfo()" id="btnSave" data-options="iconCls:'icon-save'">保存</a>
+    <a class="easyui-linkbutton" onclick="saveInfo(true)" id="btnSaveAndNew" data-options="iconCls:'icon-save_new'">保存并新建</a>
+    <a class="easyui-linkbutton" onclick="common.closeWindow()" id="btnClose" data-options="iconCls:'icon-cancel'">关闭</a>
+</div>
+</body>
+</html>
