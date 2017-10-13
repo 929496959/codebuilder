@@ -23,6 +23,7 @@ namespace CodeBuilder.PowerDesigner
         private XmlNamespaceManager nms;
         private string pdmFileName;
         private string databaseType;
+        private List<string> existsCodes = new List<string>();
 
         public PdmParser(string pdmFileName)
         {
@@ -178,8 +179,15 @@ namespace CodeBuilder.PowerDesigner
                             continue;
                         }
 
-                        var parentColumnId = ndRefer.SelectSingleNode("c:Joins/o:ReferenceJoin/c:Object1/o:Column", nms).Attributes["Ref"].InnerText;
-                        var childColumnId = ndRefer.SelectSingleNode("c:Joins/o:ReferenceJoin/c:Object2/o:Column", nms).Attributes["Ref"].InnerText;
+                        var ndObject1 = ndRefer.SelectSingleNode("c:Joins/o:ReferenceJoin/c:Object1/o:Column", nms);
+                        var ndObject2 = ndRefer.SelectSingleNode("c:Joins/o:ReferenceJoin/c:Object2/o:Column", nms);
+                        if (ndObject1 == null || ndObject2 == null)
+                        {
+                            continue;
+                        }
+
+                        var parentColumnId = ndObject1.Attributes["Ref"].InnerText;
+                        var childColumnId = ndObject2.Attributes["Ref"].InnerText;
 
                         Table pkT, fkT;
                         Column pkC, fkC;
@@ -333,6 +341,13 @@ namespace CodeBuilder.PowerDesigner
                 if (refNode != null)
                 {
                     var id = refNode.Attributes["Ref"].InnerText;
+                    if (existsCodes.Contains(id))
+                    {
+                        continue;
+                    }
+
+                    existsCodes.Add(id);
+
                     var tNode = tableRootNode.SelectSingleNode("o:Table[@Id='" + id + "']", nms);
 
                     if (tNode != null)

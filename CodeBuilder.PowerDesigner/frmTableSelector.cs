@@ -121,5 +121,14 @@ namespace CodeBuilder.PowerDesigner
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
+
+        private void btnAll_Click(object sender, EventArgs e)
+        {
+            foreach (var item in lstTable.Items)
+            {
+                item.Checked = true;
+                CheckedItems(item.Items);
+            }
+        }
     }
 }

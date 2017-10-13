@@ -90,6 +90,11 @@ namespace CodeBuilder.PowerDesigner
                 }
 
                 var table = parser.ParseTable(t);
+                if (table == null)
+                {
+                    continue;
+                }
+
                 result.Add(table);
                 host.Attach(table);
             }
