@@ -5,6 +5,7 @@
 //   (c) Copyright Fireasy. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using CodeBuilder.Core.Template;
 using Microsoft.VisualStudio.TextTemplating;
 using System;
 using System.CodeDom.Compiler;
@@ -24,11 +25,12 @@ namespace CodeBuilder.T4
         private List<string> assemblyLocationList = new List<string>();
         private List<string> namespaceList = new List<string>();
 
-        public TemplateHost(string path, dynamic tables, dynamic references, List<string> assemblyList)
+        public TemplateHost(string path, dynamic tables, dynamic references, List<string> assemblyList, GuidDispatcher guids)
         {
             this.path = path;
             Tables = tables;
             References = references;
+            Guids = guids;
 
             Initialize();
 
@@ -45,6 +47,8 @@ namespace CodeBuilder.T4
         public dynamic Current { get; set; }
 
         public dynamic Profile { get; set; }
+
+        public GuidDispatcher Guids { get; set; }
 
         public object GetHostOption(string optionName)
         {

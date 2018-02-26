@@ -97,7 +97,7 @@
             this.lstPart.RowNumberIndex = 0;
             this.lstPart.ShowPlusMinus = true;
             this.lstPart.ShowPlusMinusLines = false;
-            this.lstPart.Size = new System.Drawing.Size(761, 297);
+            this.lstPart.Size = new System.Drawing.Size(798, 439);
             this.lstPart.SortKey = null;
             this.lstPart.SortOrder = System.Windows.Forms.SortOrder.None;
             this.lstPart.TabIndex = 2;
@@ -167,19 +167,19 @@
             this.toolStripSeparator1,
             this.mnuDelete});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 106);
             // 
             // mnuAddRoot
             // 
             this.mnuAddRoot.Name = "mnuAddRoot";
-            this.mnuAddRoot.Size = new System.Drawing.Size(165, 22);
+            this.mnuAddRoot.Size = new System.Drawing.Size(188, 24);
             this.mnuAddRoot.Text = "添加顶级组";
             this.mnuAddRoot.Click += new System.EventHandler(this.mnuAddRoot_Click);
             // 
             // mnuAddGroup
             // 
             this.mnuAddGroup.Name = "mnuAddGroup";
-            this.mnuAddGroup.Size = new System.Drawing.Size(165, 22);
+            this.mnuAddGroup.Size = new System.Drawing.Size(188, 24);
             this.mnuAddGroup.Text = "添加组";
             this.mnuAddGroup.Click += new System.EventHandler(this.mnuAddGroup_Click);
             // 
@@ -187,26 +187,26 @@
             // 
             this.mnuAdd.Name = "mnuAdd";
             this.mnuAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.mnuAdd.Size = new System.Drawing.Size(165, 22);
+            this.mnuAdd.Size = new System.Drawing.Size(188, 24);
             this.mnuAdd.Text = "添加分部";
             this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
             // 
             // mnuDelete
             // 
             this.mnuDelete.Name = "mnuDelete";
-            this.mnuDelete.Size = new System.Drawing.Size(165, 22);
+            this.mnuDelete.Size = new System.Drawing.Size(188, 24);
             this.mnuDelete.Text = "删除";
             this.mnuDelete.Click += new System.EventHandler(this.mnuDelete_Click);
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(655, 431);
+            this.btnOk.Location = new System.Drawing.Point(692, 573);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 4;
@@ -218,7 +218,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(736, 431);
+            this.btnCancel.Location = new System.Drawing.Point(773, 573);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
@@ -228,7 +228,7 @@
             // btnLocation
             // 
             this.btnLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLocation.Location = new System.Drawing.Point(36, 431);
+            this.btnLocation.Location = new System.Drawing.Point(36, 573);
             this.btnLocation.Name = "btnLocation";
             this.btnLocation.Size = new System.Drawing.Size(119, 23);
             this.btnLocation.TabIndex = 7;
@@ -282,7 +282,7 @@
             this.tabControl1.Location = new System.Drawing.Point(36, 93);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(775, 329);
+            this.tabControl1.Size = new System.Drawing.Size(812, 471);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -291,7 +291,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(767, 303);
+            this.tabPage1.Size = new System.Drawing.Size(804, 445);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "分部";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -340,7 +340,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(830, 468);
+            this.ClientSize = new System.Drawing.Size(867, 610);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -352,7 +352,7 @@
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(805, 507);
+            this.MinimumSize = new System.Drawing.Size(820, 510);
             this.Name = "frmTemplateEditor";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

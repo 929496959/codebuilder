@@ -30,15 +30,7 @@ namespace CodeBuilder
         {
             lstPart.BeginUpdate();
 
-            foreach (var part in Template.Partitions)
-            {
-                var item = new TreeListItem(part.Name);
-                item.Checked = true;
-                item.Image = Properties.Resources.file;
-                item.Tag = part;
-                lstPart.Items.Add(item);
-                item.Cells[1].Value = part.Output;
-            }
+            FillGroups(lstPart.Items, Template.Groups);
 
             lstPart.EndUpdate();
 
@@ -89,6 +81,35 @@ namespace CodeBuilder
 
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void FillGroups(TreeListItemCollection items, List<GroupDefinition> groups)
+        {
+            foreach (var group in groups)
+            {
+                var item = new TreeListItem(group.Name);
+                item.Checked = true;
+                item.Image = Properties.Resources.category;
+                items.Add(item);
+
+                FillGroups(item.Items, group.Groups);
+                FillPartitions(item.Items, group.Partitions);
+
+                item.Expended = true;
+            }
+        }
+
+        private void FillPartitions(TreeListItemCollection items, List<PartitionDefinition> partitions)
+        {
+            foreach (var part in partitions)
+            {
+                var item = new TreeListItem(part.Name);
+                item.Checked = true;
+                item.Image = Properties.Resources.file;
+                item.Tag = part;
+                items.Add(item);
+                item.Cells[1].Value = part.Output;
+            }
         }
     }
 }

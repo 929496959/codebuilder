@@ -11,7 +11,7 @@ namespace CodeBuilder.Core.Template
 {
     public static class ResourceWriter
     {
-        public static void Write(TemplateDefinition template, string output)
+        public static void Write(TemplateDefinition template, Profile profile, string output)
         {
             if (template.Resources.Count == 0)
             {
@@ -22,7 +22,7 @@ namespace CodeBuilder.Core.Template
             foreach (var res in template.Resources)
             {
                 var source = Path.Combine(path, res);
-                var desc = Path.Combine(output, res);
+                var desc = new Parser().Parse(null, profile, Path.Combine(output, res));
                 var descDir = new FileInfo(desc).DirectoryName;
                 if (!Directory.Exists(descDir))
                 {

@@ -84,6 +84,7 @@ namespace CodeBuilder.T4
             var result = new List<GenerateResult>();
             var _tables = ProxyBuilder.Rebuild(tables);
             var _profile = ProxyBuilder.Rebuild(option.Profile);
+            var _guids = new GuidDispatcher();
 
             var _reference = new List<dynamic>();
             foreach (var table in _tables)
@@ -95,7 +96,7 @@ namespace CodeBuilder.T4
             assemblyList.AddRange(ProxyBuilder.GetAssemblyList());
 
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "templates\\T4");
-            var host = new TemplateHost(path, _tables, _reference, assemblyList);
+            var host = new TemplateHost(path, _tables, _reference, assemblyList, _guids);
             var engine = new Engine();
 
             host.Profile = _profile;
@@ -164,7 +165,7 @@ namespace CodeBuilder.T4
 
             if (option.WriteToDisk)
             {
-                ResourceWriter.Write(option.Template, option.OutputDirectory);
+                ResourceWriter.Write(option.Template, option.Profile, option.OutputDirectory);
             }
 
             return result;

@@ -158,7 +158,7 @@ namespace CodeBuilder.Razor
 
             if (option.WriteToDisk)
             {
-                ResourceWriter.Write(option.Template, option.OutputDirectory);
+                ResourceWriter.Write(option.Template, option.Profile, option.OutputDirectory);
             }
 
             return result;

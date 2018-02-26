@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="Template\GenerateResult.cs" />
     <Compile Include="Template\GroupDefinition.cs" />
+    <Compile Include="Template\Parser.cs" />
     <Compile Include="Template\ResourceWriter.cs" />
     <Compile Include="Template\TemplateDirectory.cs" />
     <Compile Include="Template\TemplateStorage.cs" />

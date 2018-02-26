@@ -41,14 +41,17 @@
             // 
             // treeListColumn1
             // 
+            this.treeListColumn1.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn1.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn1.Formatter = null;
             this.treeListColumn1.Image = null;
             this.treeListColumn1.Text = "分部名称";
-            this.treeListColumn1.Width = 120;
+            this.treeListColumn1.Validator = null;
+            this.treeListColumn1.Width = 200;
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(301, 349);
+            this.btnOk.Location = new System.Drawing.Point(476, 479);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
@@ -59,7 +62,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(382, 349);
+            this.btnCancel.Location = new System.Drawing.Point(557, 479);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -68,7 +71,7 @@
             // 
             // btnSelectPath
             // 
-            this.btnSelectPath.Location = new System.Drawing.Point(396, 303);
+            this.btnSelectPath.Location = new System.Drawing.Point(367, 479);
             this.btnSelectPath.Name = "btnSelectPath";
             this.btnSelectPath.Size = new System.Drawing.Size(61, 23);
             this.btnSelectPath.TabIndex = 14;
@@ -79,16 +82,16 @@
             // txtPath
             // 
             this.txtPath.BackColor = System.Drawing.SystemColors.Window;
-            this.txtPath.Location = new System.Drawing.Point(77, 304);
+            this.txtPath.Location = new System.Drawing.Point(79, 481);
             this.txtPath.Name = "txtPath";
             this.txtPath.ReadOnly = true;
-            this.txtPath.Size = new System.Drawing.Size(313, 21);
+            this.txtPath.Size = new System.Drawing.Size(272, 21);
             this.txtPath.TabIndex = 13;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 307);
+            this.label2.Location = new System.Drawing.Point(14, 484);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 12);
             this.label2.TabIndex = 12;
@@ -111,28 +114,34 @@
             this.treeListColumn2});
             this.lstPart.Footer = null;
             this.lstPart.GroupFont = new System.Drawing.Font("Consolas", 12F);
-            this.lstPart.Location = new System.Drawing.Point(14, 35);
+            this.lstPart.HandCursor = false;
+            this.lstPart.Location = new System.Drawing.Point(13, 35);
             this.lstPart.Name = "lstPart";
             this.lstPart.NoneItemText = "没有可显示的数据";
             this.lstPart.RowNumberIndex = 0;
             this.lstPart.ShowCheckBoxes = true;
             this.lstPart.ShowGridLines = false;
-            this.lstPart.Size = new System.Drawing.Size(443, 253);
+            this.lstPart.Size = new System.Drawing.Size(619, 427);
+            this.lstPart.SortKey = null;
+            this.lstPart.SortOrder = System.Windows.Forms.SortOrder.None;
             this.lstPart.TabIndex = 10;
             // 
             // treeListColumn2
             // 
+            this.treeListColumn2.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn2.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn2.Formatter = null;
             this.treeListColumn2.Image = null;
             this.treeListColumn2.Text = "输出文件";
-            this.treeListColumn2.Width = 260;
+            this.treeListColumn2.Validator = null;
+            this.treeListColumn2.Width = 340;
             // 
             // frmPreBuild
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(473, 391);
+            this.ClientSize = new System.Drawing.Size(646, 516);
             this.Controls.Add(this.btnSelectPath);
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.label2);
