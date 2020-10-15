@@ -12,6 +12,7 @@ using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -337,6 +338,11 @@ namespace CodeBuilder
         private void mnuReplace_Click(object sender, EventArgs e)
         {
             findForm.ShowFor(txtEditor, true);
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer", "/select,\"" + lblFileName.Text + "\"");
         }
     }
 }

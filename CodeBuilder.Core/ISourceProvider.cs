@@ -14,7 +14,7 @@ namespace CodeBuilder.Core
     /// <summary>
     /// 数据源提供者。
     /// </summary>
-    public interface ISourceProvider
+    public interface ISourceProvider : IPlugin
     {
         string Name { get; }
 
@@ -22,7 +22,7 @@ namespace CodeBuilder.Core
         /// 连接数据源，获取预览表。
         /// </summary>
         /// <returns></returns>
-        List<Table> Preview();
+        List<Table> Preview(SourceOption option);
 
         /// <summary>
         /// 获取指定表的架构。

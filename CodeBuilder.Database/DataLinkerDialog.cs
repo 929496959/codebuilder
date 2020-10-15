@@ -16,15 +16,6 @@ namespace CodeBuilder.Database
         /// <summary>
         /// 显示对话框。
         /// </summary>
-        /// <returns></returns>
-        public DialogResult ShowDialog()
-        {
-            return ShowDialog(IntPtr.Zero);
-        }
-
-        /// <summary>
-        /// 显示对话框。
-        /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>
         public DialogResult ShowDialog(IntPtr handle)
@@ -60,6 +51,7 @@ namespace CodeBuilder.Database
                 Marshal.ReleaseComObject(conn);
             }
             Marshal.ReleaseComObject(link);
+
             return ret;
         }
     }

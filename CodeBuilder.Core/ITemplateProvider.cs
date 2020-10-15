@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace CodeBuilder.Core
 {
-    public interface ITemplateProvider
+    public interface ITemplateProvider : IPlugin
     {
         string Name { get; }
 

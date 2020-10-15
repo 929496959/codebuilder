@@ -59,7 +59,7 @@ namespace CodeBuilder.Database
             {
                 var item = new TreeListItem();
                 item.Tag = t;
-                item.Image = Properties.Resources.table;
+                item.Image = (t as Table).IsView ? Properties.Resources.view : Properties.Resources.table;
                 lstTable.Items.Add(item);
 
                 item.Cells[0].Value = t.Name;

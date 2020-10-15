@@ -51,9 +51,11 @@
             this.treeListColumn1,
             this.treeListColumn2});
             this.lstObject.ContextMenuStrip = this.contextMenuStrip1;
+            this.lstObject.DataSource = null;
             this.lstObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstObject.Footer = null;
             this.lstObject.GroupFont = new System.Drawing.Font("宋体", 12F);
+            this.lstObject.HandCursor = false;
             this.lstObject.Location = new System.Drawing.Point(2, 2);
             this.lstObject.Name = "lstObject";
             this.lstObject.NoneItemText = "请点击“数据源\"菜单，选择数据源";
@@ -62,23 +64,32 @@
             this.lstObject.ShowPlusMinus = true;
             this.lstObject.ShowPlusMinusLines = false;
             this.lstObject.Size = new System.Drawing.Size(668, 405);
+            this.lstObject.SortKey = null;
+            this.lstObject.SortOrder = System.Windows.Forms.SortOrder.None;
             this.lstObject.TabIndex = 5;
             this.lstObject.ItemSelectionChanged += new Fireasy.Windows.Forms.TreeListItemSelectionChangedEventHandler(this.lstObject_ItemSelectionChanged);
             this.lstObject.AfterCellUpdated += new Fireasy.Windows.Forms.TreeListAfterCellUpdatedEventHandler(this.lstObject_AfterCellUpdated);
+            this.lstObject.ItemCheckChanged += new Fireasy.Windows.Forms.TreeListItemCheckChangeEventHandler(this.lstObject_ItemCheckChanged);
             // 
             // treeListColumn1
             // 
+            this.treeListColumn1.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn1.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn1.Formatter = null;
             this.treeListColumn1.Image = null;
             this.treeListColumn1.Text = "名称";
+            this.treeListColumn1.Validator = null;
             this.treeListColumn1.Width = 200;
             // 
             // treeListColumn2
             // 
+            this.treeListColumn2.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn2.Editable = true;
             this.treeListColumn2.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn2.Formatter = null;
             this.treeListColumn2.Image = null;
             this.treeListColumn2.Text = "备注";
+            this.treeListColumn2.Validator = null;
             this.treeListColumn2.Width = 200;
             // 
             // contextMenuStrip1
@@ -92,50 +103,50 @@
             this.toolStripMenuItem2,
             this.mnuBuild});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(161, 146);
             // 
             // mnuSelAllTable
             // 
             this.mnuSelAllTable.Name = "mnuSelAllTable";
-            this.mnuSelAllTable.Size = new System.Drawing.Size(152, 22);
+            this.mnuSelAllTable.Size = new System.Drawing.Size(160, 26);
             this.mnuSelAllTable.Text = "选择所有表";
             this.mnuSelAllTable.Click += new System.EventHandler(this.mnuSelAllTable_Click);
             // 
             // mnuSelInvTable
             // 
             this.mnuSelInvTable.Name = "mnuSelInvTable";
-            this.mnuSelInvTable.Size = new System.Drawing.Size(152, 22);
+            this.mnuSelInvTable.Size = new System.Drawing.Size(160, 26);
             this.mnuSelInvTable.Text = "反向选择表";
             this.mnuSelInvTable.Click += new System.EventHandler(this.mnuSelInvTable_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
             // 
             // mnuSelAllColumn
             // 
             this.mnuSelAllColumn.Name = "mnuSelAllColumn";
-            this.mnuSelAllColumn.Size = new System.Drawing.Size(152, 22);
+            this.mnuSelAllColumn.Size = new System.Drawing.Size(160, 26);
             this.mnuSelAllColumn.Text = "选择所有列";
             this.mnuSelAllColumn.Click += new System.EventHandler(this.mnuSelAllColumn_Click);
             // 
             // mnuSelInvColumn
             // 
             this.mnuSelInvColumn.Name = "mnuSelInvColumn";
-            this.mnuSelInvColumn.Size = new System.Drawing.Size(152, 22);
+            this.mnuSelInvColumn.Size = new System.Drawing.Size(160, 26);
             this.mnuSelInvColumn.Text = "反向选择列";
             this.mnuSelInvColumn.Click += new System.EventHandler(this.mnuSelInvColumn_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(157, 6);
             // 
             // mnuBuild
             // 
             this.mnuBuild.Name = "mnuBuild";
-            this.mnuBuild.Size = new System.Drawing.Size(152, 22);
+            this.mnuBuild.Size = new System.Drawing.Size(160, 26);
             this.mnuBuild.Text = "生成预览";
             this.mnuBuild.Click += new System.EventHandler(this.mnuBuild_Click);
             // 

@@ -63,6 +63,9 @@ namespace CodeBuilder.Core.Source
         [Description("字段的数据类型。")]
         public string DataType { get; set; }
 
+        [Description("字段的类型(类型+长度/精度)。")]
+        public string ColumnType { get; set; }
+
         [Description("字段的长度。")]
         public long? Length { get; set; }
 
@@ -80,6 +83,9 @@ namespace CodeBuilder.Core.Source
 
         [Description("字段是否可为空。")]
         public bool IsNullable { get; set; }
+
+        [Description("排列的序号。")]
+        public int Index { get; set; }
 
         [Description("字段是否为主键。")]
         public bool IsPrimaryKey

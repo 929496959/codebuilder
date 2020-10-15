@@ -5,7 +5,7 @@
 //   (c) Copyright Fireasy. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
-using Fireasy.Windows.Forms;
+using CodeBuilder.Core;
 using System;
 
 namespace CodeBuilder
@@ -16,11 +16,13 @@ namespace CodeBuilder
         {
             InitializeComponent();
             Icon = Properties.Resources.property;
+            PropertyUnity.Register(obj => propertyGrid1.SelectedObject = obj);
         }
 
-        public void SetObject(object obj)
+        protected override void OnClosed(EventArgs e)
         {
-            propertyGrid1.SelectedObject = obj;
+            base.OnClosed(e);
+            PropertyUnity.Register(null);
         }
     }
 }

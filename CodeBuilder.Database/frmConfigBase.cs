@@ -1,4 +1,6 @@
 ﻿using Fireasy.Data;
+using Fireasy.Data.Provider;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -12,6 +14,16 @@ namespace CodeBuilder.Database
         }
 
         public string ConnectionString { get; set; }
+
+        protected virtual IProvider Provider
+        {
+            get { return null; }
+        }
+
+        public DialogResult ShowDialog(IntPtr handle)
+        {
+            return ShowDialog();
+        }
 
         private void frmConfigBase_Load(object sender, System.EventArgs e)
         {

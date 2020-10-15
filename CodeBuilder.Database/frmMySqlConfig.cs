@@ -1,6 +1,5 @@
-﻿using Fireasy.Common.Extensions;
-using Fireasy.Data;
-using System.Collections.Generic;
+﻿using Fireasy.Data;
+using Fireasy.Data.Provider;
 
 namespace CodeBuilder.Database
 {
@@ -10,18 +9,33 @@ namespace CodeBuilder.Database
         {
             InitializeComponent();
         }
+        protected override IProvider Provider
+        {
+            get { return MySqlProvider.Instance; }
+        }
 
         protected override void ParseConnectionStr(ConnectionProperties properties)
         {
-            txtSvr.Text = properties.TryGetValue("data source");
-            txtDb.Text = properties.TryGetValue("database");
-            txtUser.Text = properties.TryGetValue("user id");
-            txtPwd.Text = properties.TryGetValue("password");
+            if (!string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                var parameter = Provider.GetConnectionParameter(ConnectionString);
+                txtSvr.Text = parameter.Server;
+                txtDb.Text = parameter.Database;
+                txtUser.Text = parameter.UserId;
+                txtPwd.Text = parameter.Password;
+                txtPort.Text = properties.TryGetValue("port");
+            }
         }
 
         protected override string BuildConnectionStr()
         {
-            return string.Format("data source={0};database={1};user id={2};password={3};pooling=true;charset=utf8", txtSvr.Text, txtDb.Text, txtUser.Text, txtPwd.Text);
+            var str = string.Format("data source={0};database={1};user id={2};password={3};pooling=false;charset=utf8", txtSvr.Text, txtDb.Text, txtUser.Text, txtPwd.Text);
+            if (!string.IsNullOrWhiteSpace(txtPort.Text))
+            {
+                str += ";port=" + txtPort.Text;
+            }
+
+            return str;
         }
     }
 }

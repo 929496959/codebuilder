@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 public enum NameMode
 {
-    Extend, //延续
+    Inherit, //延续
     Pascal //首字母大写，适用于用-分隔的命名
 }
 
@@ -33,11 +33,14 @@ public class ClassNameInitializer : IInitializer
     {
         var table = schema as Table;
         var tableName = table.Name;
-        var regx = new Regex(profile.TableRegex);
-        if (regx.IsMatch(tableName))
-        {
 
-            tableName = regx.Replace(tableName, "");
+        if (!string.IsNullOrEmpty(profile.TableRegex))
+        {
+            var regx = new Regex(profile.TableRegex);
+            if (regx.IsMatch(tableName))
+            {
+                tableName = regx.Replace(tableName, string.Empty);
+            }
         }
 
         if ((int)profile.NameMode == (int)NameMode.Pascal)
@@ -57,13 +60,24 @@ public class PropertyNameInitializer : IInitializer
     public void Initialize(dynamic profile, SchemaBase schema)
     {
         var column = schema as Column;
+        var columnName = column.Name;
+
+        if (!string.IsNullOrEmpty(profile.ColumeRegex))
+        {
+            var regx = new Regex(profile.ColumeRegex);
+            if (regx.IsMatch(columnName))
+            {
+                columnName = regx.Replace(columnName, string.Empty);
+            }
+        }
+
         if ((int)profile.NameMode == (int)NameMode.Pascal)
         {
-            column.PropertyName = SchemaNameFormatter.Format(profile, column.Name);
+            column.PropertyName = SchemaNameFormatter.Format(profile, columnName);
         }
         else
         {
-            column.PropertyName = column.Name;
+            column.PropertyName = columnName;
         }
     }
 }

@@ -7,14 +7,15 @@
 // -----------------------------------------------------------------------
 using Fireasy.Common.Serialization;
 using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Text;
 
 namespace CodeBuilder
 {
     public class Config
     {
+        private Font font;
+
         static Config()
         {
             Instance = Read();
@@ -28,11 +29,18 @@ namespace CodeBuilder
 
         public string OutputDirectory { get; set; }
 
+        public string Encoding { get; set; }
+
+        public bool CheckUpdate { get; set; }
+
+        public bool Source_View { get; set; }
+
+
         public static Config Read()
         {
             var json = new JsonSerializer();
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "app.cfg");
-            var content = File.ReadAllText(path, Encoding.Default);
+            var content = File.ReadAllText(path, System.Text.Encoding.Default);
             return json.Deserialize<Config>(content);
         }
 
@@ -42,7 +50,7 @@ namespace CodeBuilder
             var json = new JsonSerializer(option);
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "app.cfg");
             var content = json.Serialize(Config.Instance);
-            File.WriteAllText(path, content, Encoding.Default);
+            File.WriteAllText(path, content, System.Text.Encoding.Default);
         }
     }
 }

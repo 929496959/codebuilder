@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace CodeBuilder.Database
 {
@@ -6,6 +7,6 @@ namespace CodeBuilder.Database
     {
         string ConnectionString { get; set; }
 
-        DialogResult ShowDialog();
+        DialogResult ShowDialog(IntPtr handle);
     }
 }

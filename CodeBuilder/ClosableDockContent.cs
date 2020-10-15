@@ -1,8 +1,11 @@
 ﻿
+using CodeBuilder.Core;
+using System;
+using System.Drawing;
 using WeifenLuo.WinFormsUI.Docking;
 namespace CodeBuilder
 {
-    public class ClosableDockContent : WeifenLuo.WinFormsUI.Docking.DockContent
+    public class ClosableDockContent : WeifenLuo.WinFormsUI.Docking.DockContent, IFontApplyer
     {
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.ComponentModel.IContainer components;
@@ -57,7 +60,6 @@ namespace CodeBuilder
             this.Name = "ClosableDockContent";
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         public ClosableDockContent()

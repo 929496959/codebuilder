@@ -116,5 +116,17 @@ namespace CodeBuilder
         {
             Reload();
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmTemplateCopy { Template = StaticUnity.Template })
+            {
+                if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    MessageBoxHelper.ShowInformation("模板复制成功，请从主窗口【模板】菜单中选择。");
+                    TemplateAct();
+                }
+            }
+        }
     }
 }

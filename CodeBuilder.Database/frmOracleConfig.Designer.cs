@@ -69,6 +69,7 @@
             this.txtSvr.Name = "txtSvr";
             this.txtSvr.Size = new System.Drawing.Size(202, 21);
             this.txtSvr.TabIndex = 5;
+            this.txtSvr.Text = "ORCL";
             // 
             // txtUser
             // 

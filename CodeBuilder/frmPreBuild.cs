@@ -31,6 +31,7 @@ namespace CodeBuilder
             lstPart.BeginUpdate();
 
             FillGroups(lstPart.Items, Template.Groups);
+            FillPartitions(lstPart.Items, Template.Partitions);
 
             lstPart.EndUpdate();
 
@@ -59,13 +60,7 @@ namespace CodeBuilder
             }
 
             Partitions = new List<PartitionDefinition>();
-            foreach (var item in lstPart.Items)
-            {
-                if (item.Checked)
-                {
-                    Partitions.Add(item.Tag as PartitionDefinition);
-                }
-            }
+            GetPartitions(lstPart.Items);
 
             if (Partitions.Count == 0)
             {
@@ -81,6 +76,19 @@ namespace CodeBuilder
 
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void GetPartitions(TreeListItemCollection items)
+        {
+            foreach (var item in items)
+            {
+                if (item.Tag is PartitionDefinition && item.Checked)
+                {
+                    Partitions.Add(item.Tag as PartitionDefinition);
+                }
+
+                GetPartitions(item.Items);
+            }
         }
 
         private void FillGroups(TreeListItemCollection items, List<GroupDefinition> groups)

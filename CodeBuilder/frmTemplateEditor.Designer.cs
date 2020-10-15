@@ -55,6 +55,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lstRes = new Fireasy.Windows.Forms.TreeList();
             this.treeListColumn6 = new Fireasy.Windows.Forms.TreeListColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -87,6 +88,7 @@
             this.treeListColumn4,
             this.treeListColumn5});
             this.lstPart.ContextMenuStrip = this.contextMenuStrip1;
+            this.lstPart.DataSource = null;
             this.lstPart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstPart.Footer = null;
             this.lstPart.GroupFont = new System.Drawing.Font("Consolas", 12F);
@@ -167,19 +169,19 @@
             this.toolStripSeparator1,
             this.mnuDelete});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 106);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(198, 114);
             // 
             // mnuAddRoot
             // 
             this.mnuAddRoot.Name = "mnuAddRoot";
-            this.mnuAddRoot.Size = new System.Drawing.Size(188, 24);
+            this.mnuAddRoot.Size = new System.Drawing.Size(197, 26);
             this.mnuAddRoot.Text = "添加顶级组";
             this.mnuAddRoot.Click += new System.EventHandler(this.mnuAddRoot_Click);
             // 
             // mnuAddGroup
             // 
             this.mnuAddGroup.Name = "mnuAddGroup";
-            this.mnuAddGroup.Size = new System.Drawing.Size(188, 24);
+            this.mnuAddGroup.Size = new System.Drawing.Size(197, 26);
             this.mnuAddGroup.Text = "添加组";
             this.mnuAddGroup.Click += new System.EventHandler(this.mnuAddGroup_Click);
             // 
@@ -187,19 +189,19 @@
             // 
             this.mnuAdd.Name = "mnuAdd";
             this.mnuAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.mnuAdd.Size = new System.Drawing.Size(188, 24);
+            this.mnuAdd.Size = new System.Drawing.Size(197, 26);
             this.mnuAdd.Text = "添加分部";
             this.mnuAdd.Click += new System.EventHandler(this.mnuAdd_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
             // 
             // mnuDelete
             // 
             this.mnuDelete.Name = "mnuDelete";
-            this.mnuDelete.Size = new System.Drawing.Size(188, 24);
+            this.mnuDelete.Size = new System.Drawing.Size(197, 26);
             this.mnuDelete.Text = "删除";
             this.mnuDelete.Click += new System.EventHandler(this.mnuDelete_Click);
             // 
@@ -302,7 +304,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(767, 303);
+            this.tabPage2.Size = new System.Drawing.Size(804, 445);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "资源";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -312,6 +314,7 @@
             this.lstRes.AlternateBackColor = System.Drawing.Color.Empty;
             this.lstRes.Columns.AddRange(new Fireasy.Windows.Forms.TreeListColumn[] {
             this.treeListColumn6});
+            this.lstRes.DataSource = null;
             this.lstRes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstRes.Footer = null;
             this.lstRes.GroupFont = new System.Drawing.Font("Consolas", 12F);
@@ -320,7 +323,7 @@
             this.lstRes.Name = "lstRes";
             this.lstRes.NoneItemText = "将资源拷贝到模板目录的下级目录\"Resources\"中";
             this.lstRes.RowNumberIndex = 0;
-            this.lstRes.Size = new System.Drawing.Size(761, 297);
+            this.lstRes.Size = new System.Drawing.Size(798, 439);
             this.lstRes.SortKey = null;
             this.lstRes.SortOrder = System.Windows.Forms.SortOrder.None;
             this.lstRes.TabIndex = 0;
@@ -351,6 +354,7 @@
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.label1);
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(820, 510);
             this.Name = "frmTemplateEditor";
@@ -395,5 +399,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuAddGroup;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem mnuAddRoot;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

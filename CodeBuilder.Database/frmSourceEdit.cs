@@ -105,7 +105,7 @@ namespace CodeBuilder.Database
             }
 
             frm.ConnectionString = txtConnStr.Text;
-            if (frm.ShowDialog() == DialogResult.OK)
+            if (frm.ShowDialog(Handle) == DialogResult.OK)
             {
                 txtConnStr.Text = frm.ConnectionString;
             }

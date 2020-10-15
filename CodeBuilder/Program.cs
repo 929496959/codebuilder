@@ -13,7 +13,7 @@ namespace CodeBuilder
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(params string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -22,6 +22,7 @@ namespace CodeBuilder
             
             SchemaExtensionManager.Initialize();
             ProfileExtensionManager.Initialize();
+
             Application.Run(new frmMain());
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Fireasy.Common.Extensions;
 using Fireasy.Data;
+using Fireasy.Data.Provider;
 
 namespace CodeBuilder.Database
 {
@@ -11,12 +12,21 @@ namespace CodeBuilder.Database
         {
             InitializeComponent();
         }
+        protected override IProvider Provider
+        {
+            get { return OracleProvider.Instance; }
+        }
 
         protected override void ParseConnectionStr(ConnectionProperties properties)
         {
-            txtSvr.Text = properties.TryGetValue("data source");
-            txtUser.Text = properties.TryGetValue("user id");
-            txtPwd.Text = properties.TryGetValue("password");
+            if (!string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                var parameter = Provider.GetConnectionParameter(ConnectionString);
+                txtSvr.Text = parameter.Server;
+                txtUser.Text = parameter.UserId;
+                txtPwd.Text = parameter.Password;
+            }
+
         }
 
         protected override string BuildConnectionStr()

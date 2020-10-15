@@ -88,6 +88,7 @@
             this.propertyGrid1.Size = new System.Drawing.Size(351, 440);
             this.propertyGrid1.TabIndex = 2;
             this.propertyGrid1.ToolbarVisible = false;
+            this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
             // frmProfile
             // 

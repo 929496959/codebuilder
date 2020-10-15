@@ -13,6 +13,7 @@ using Fireasy.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CodeBuilder
@@ -25,6 +26,8 @@ namespace CodeBuilder
         }
 
         public Action<object> SelectItemAct { get; set; }
+
+        public Action<int> CheckItemsAct { get; set; }
 
         public void FillTables(IEnumerable<IObject> tables)
         {
@@ -40,7 +43,7 @@ namespace CodeBuilder
             {
                 var titem = new TreeListItem();
                 lstObject.Items.Add(titem);
-                titem.Image = Properties.Resources.table;
+                titem.Image = (t as Table).IsView ? Properties.Resources.view : Properties.Resources.table;
                 titem.Checked = true;
                 titem.Tag = t;
                 titem.Cells[0].Value = t.Name;
@@ -172,6 +175,22 @@ namespace CodeBuilder
             }
         }
 
+        public void ApplyProfile()
+        {
+            UpdateObjectByProfile(lstObject.Items);
+            SelectItemAct(lstObject.SelectedItems.Count > 0 ? lstObject.SelectedItems[0].Tag : null);
+        }
+
+        private void UpdateObjectByProfile(TreeListItemCollection items)
+        {
+            foreach (var item in items)
+            {
+                InitializerUnity.Initialize(item.Tag as SchemaBase);
+
+                UpdateObjectByProfile(item.Items);
+            }
+        }
+
         private void lstObject_ItemSelectionChanged(object sender, TreeListItemSelectionEventArgs e)
         {
             if (SelectItemAct != null)
@@ -207,6 +226,8 @@ namespace CodeBuilder
             {
                 item.Checked = true;
             }
+
+            CheckItemsAct(lstObject.CheckedItems.Where(s => s.Tag is Table).Count());
         }
 
         private void mnuSelInvTable_Click(object sender, EventArgs e)
@@ -215,6 +236,8 @@ namespace CodeBuilder
             {
                 item.Checked = !item.Checked;
             }
+
+            CheckItemsAct(lstObject.CheckedItems.Where(s => s.Tag is Table).Count());
         }
 
         private void mnuSelAllColumn_Click(object sender, EventArgs e)
@@ -280,7 +303,7 @@ namespace CodeBuilder
 
             var option = new TemplateOption();
             option.Template = template;
-            option.Partitions = StaticUnity.Template.Partitions;
+            option.Partitions = StaticUnity.Template.GetAllPartitions();
             option.DynamicAssemblies.AddRange(StaticUnity.DynamicAssemblies);
             option.Profile = StaticUnity.Profile;
 
@@ -303,6 +326,11 @@ namespace CodeBuilder
             {
                 Cursor = Cursors.Default;
             }
+        }
+
+        private void lstObject_ItemCheckChanged(object sender, TreeListItemEventArgs e)
+        {
+            CheckItemsAct(lstObject.CheckedItems.Where(s => s.Tag is Table).Count());
         }
     }
 }

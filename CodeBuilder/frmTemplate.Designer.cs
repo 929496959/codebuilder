@@ -32,17 +32,21 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tlbNew = new System.Windows.Forms.ToolStripButton();
             this.tlbEdit = new System.Windows.Forms.ToolStripButton();
-            this.lstPart = new Fireasy.Windows.Forms.TreeList();
             this.mnuRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.lstPart = new Fireasy.Windows.Forms.TreeList();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeListColumn1
             // 
+            this.treeListColumn1.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn1.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn1.Formatter = null;
             this.treeListColumn1.Image = null;
             this.treeListColumn1.Spring = true;
             this.treeListColumn1.Text = "模板文件";
+            this.treeListColumn1.Validator = null;
             this.treeListColumn1.Width = 274;
             // 
             // toolStrip1
@@ -50,6 +54,7 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlbNew,
+            this.toolStripButton1,
             this.tlbEdit,
             this.mnuRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(2, 2);
@@ -78,25 +83,6 @@
             this.tlbEdit.Text = "修改模板";
             this.tlbEdit.Click += new System.EventHandler(this.tlbEdit_Click);
             // 
-            // lstPart
-            // 
-            this.lstPart.AlternateBackColor = System.Drawing.Color.Empty;
-            this.lstPart.Columns.AddRange(new Fireasy.Windows.Forms.TreeListColumn[] {
-            this.treeListColumn1});
-            this.lstPart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstPart.Footer = null;
-            this.lstPart.GroupFont = new System.Drawing.Font("宋体", 12F);
-            this.lstPart.Location = new System.Drawing.Point(2, 27);
-            this.lstPart.Name = "lstPart";
-            this.lstPart.NoneItemText = "请点击“模板\"菜单";
-            this.lstPart.RowNumberIndex = 0;
-            this.lstPart.ShowGridLines = false;
-            this.lstPart.ShowHeader = false;
-            this.lstPart.ShowPlusMinus = true;
-            this.lstPart.Size = new System.Drawing.Size(276, 322);
-            this.lstPart.TabIndex = 7;
-            this.lstPart.ItemDoubleClick += new Fireasy.Windows.Forms.TreeListItemDoubleClickEventHandler(this.lstPart_ItemDoubleClick);
-            // 
             // mnuRefresh
             // 
             this.mnuRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -106,6 +92,39 @@
             this.mnuRefresh.Size = new System.Drawing.Size(23, 22);
             this.mnuRefresh.Text = "刷新";
             this.mnuRefresh.Click += new System.EventHandler(this.mnuRefresh_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::CodeBuilder.Properties.Resources.copy;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "复制副本";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // lstPart
+            // 
+            this.lstPart.AlternateBackColor = System.Drawing.Color.Empty;
+            this.lstPart.Columns.AddRange(new Fireasy.Windows.Forms.TreeListColumn[] {
+            this.treeListColumn1});
+            this.lstPart.DataSource = null;
+            this.lstPart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstPart.Footer = null;
+            this.lstPart.GroupFont = new System.Drawing.Font("宋体", 12F);
+            this.lstPart.HandCursor = false;
+            this.lstPart.Location = new System.Drawing.Point(2, 27);
+            this.lstPart.Name = "lstPart";
+            this.lstPart.NoneItemText = "请点击“模板\"菜单";
+            this.lstPart.RowNumberIndex = 0;
+            this.lstPart.ShowGridLines = false;
+            this.lstPart.ShowHeader = false;
+            this.lstPart.ShowPlusMinus = true;
+            this.lstPart.Size = new System.Drawing.Size(276, 322);
+            this.lstPart.SortKey = null;
+            this.lstPart.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.lstPart.TabIndex = 7;
+            this.lstPart.ItemDoubleClick += new Fireasy.Windows.Forms.TreeListItemDoubleClickEventHandler(this.lstPart_ItemDoubleClick);
             // 
             // frmTemplate
             // 
@@ -138,5 +157,6 @@
         private System.Windows.Forms.ToolStripButton tlbNew;
         private System.Windows.Forms.ToolStripButton tlbEdit;
         private System.Windows.Forms.ToolStripButton mnuRefresh;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

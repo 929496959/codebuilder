@@ -54,7 +54,7 @@
             // lblReplaceWith
             // 
             this.lblReplaceWith.AutoSize = true;
-            this.lblReplaceWith.Location = new System.Drawing.Point(18, 43);
+            this.lblReplaceWith.Location = new System.Drawing.Point(18, 49);
             this.lblReplaceWith.Name = "lblReplaceWith";
             this.lblReplaceWith.Size = new System.Drawing.Size(35, 12);
             this.lblReplaceWith.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             // txtReplaceWith
             // 
-            this.txtReplaceWith.Location = new System.Drawing.Point(76, 40);
+            this.txtReplaceWith.Location = new System.Drawing.Point(76, 46);
             this.txtReplaceWith.Name = "txtReplaceWith";
             this.txtReplaceWith.Size = new System.Drawing.Size(196, 21);
             this.txtReplaceWith.TabIndex = 3;
@@ -107,7 +107,7 @@
             // chkMatchWholeWord
             // 
             this.chkMatchWholeWord.AutoSize = true;
-            this.chkMatchWholeWord.Location = new System.Drawing.Point(166, 69);
+            this.chkMatchWholeWord.Location = new System.Drawing.Point(166, 77);
             this.chkMatchWholeWord.Name = "chkMatchWholeWord";
             this.chkMatchWholeWord.Size = new System.Drawing.Size(72, 16);
             this.chkMatchWholeWord.TabIndex = 5;
@@ -117,7 +117,7 @@
             // chkMatchCase
             // 
             this.chkMatchCase.AutoSize = true;
-            this.chkMatchCase.Location = new System.Drawing.Point(76, 69);
+            this.chkMatchCase.Location = new System.Drawing.Point(76, 77);
             this.chkMatchCase.Name = "chkMatchCase";
             this.chkMatchCase.Size = new System.Drawing.Size(84, 16);
             this.chkMatchCase.TabIndex = 4;

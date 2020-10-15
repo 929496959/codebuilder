@@ -22,14 +22,14 @@ namespace CodeBuilder.T4
             }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override bool Dispose(bool disposing)
         {
             if (domain != null)
             {
                 AppDomain.Unload(domain);
             }
 
-            base.Dispose(disposing);
+            return base.Dispose(disposing);
         }
     }
 }

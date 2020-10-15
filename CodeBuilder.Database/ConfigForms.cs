@@ -11,10 +11,12 @@ namespace CodeBuilder.Database
 
         static ConfigForms()
         {
-            dic.Add("MsSql", () => new frmMsSqlConfig());
+            dic.Add("SqlServer", () => new frmMsSqlConfig());
             dic.Add("Oracle", () => new frmOracleConfig());
             dic.Add("MySql", () => new frmMySqlConfig());
             dic.Add("SQLite", () => new frmSQLiteConfig());
+            dic.Add("PostgreSql", () => new frmPostgresqlConfig());
+            dic.Add("Firebird", () => new frmFirebirdConfig());
             dic.Add("OleDb", () => new DataLinkerDialog());
         }
 

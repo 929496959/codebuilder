@@ -25,6 +25,8 @@ namespace CodeBuilder
             Icon = Properties.Resources.profile;
         }
 
+        public Action PropertyChangeAct { get; set; }
+
         private void frmProfile_Load(object sender, EventArgs e)
         {
             propertyGrid1.SelectedObject = StaticUnity.Profile;
@@ -70,6 +72,14 @@ namespace CodeBuilder
                     profileName = dialog.FileName;
                     ProfileUnity.SaveFile(StaticUnity.Profile, profileName);
                 }
+            }
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            if (PropertyChangeAct != null)
+            {
+                PropertyChangeAct();
             }
         }
     }

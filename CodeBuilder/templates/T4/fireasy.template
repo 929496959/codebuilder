@@ -11,6 +11,13 @@
             "Loop": "Tables",
             "Syntax": "C#"
         },
+		{
+            "Name": "实体类_扩展",
+            "FileName": "entity_ex.tt",
+            "Output": "Models\\{ClassName}_Ex.cs",
+            "Loop": "Tables",
+            "Syntax": "C#"
+        },
         {
             "Name": "实体关系",
             "FileName": "relation.tt",

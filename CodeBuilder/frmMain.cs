@@ -10,17 +10,14 @@ using CodeBuilder.Core.Source;
 using CodeBuilder.Core.Template;
 using Fireasy.Common.Composition;
 using Fireasy.Common.Extensions;
-using Fireasy.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using System.Net;
-using Fireasy.Common.Serialization;
 
 namespace CodeBuilder
 {
@@ -47,6 +44,7 @@ namespace CodeBuilder
             StaticUnity.Profile = ProfileUnity.LoadCurrent();
             InitializeSourceMenus();
             InitializeTemplateMenus();
+            InitializeToolMenus();
 
             OpenOutputForm();
             GetTableForm();
@@ -55,7 +53,10 @@ namespace CodeBuilder
             OpenTemplateForm();
             frmProperty.Activate();
 
-            Process.Start("AutoUpdate.exe");
+            if (Config.Instance.CheckUpdate)
+            {
+                Process.Start("AutoUpdate.exe");
+            }
         }
 
         private frmTable GetTableForm()
@@ -65,18 +66,16 @@ namespace CodeBuilder
                 frmTable = new frmTable();
                 frmTable.SelectItemAct = o =>
                     {
-                        if (frmProperty != null)
-                        {
-                            frmProperty.SetObject(o);
-                        }
+                        PropertyUnity.SetObject(o);
                     };
                 frmTable.CloseAct = () =>
                     {
                         frmTable = null;
-                        if (frmProperty != null)
-                        {
-                            frmProperty.SetObject(null);
-                        }
+                        PropertyUnity.SetObject(null);
+                    };
+                frmTable.CheckItemsAct = c =>
+                    {
+                        spCount.Text = "选择了 " + c + "个";
                     };
                 frmTable.Show(dockMgr, DockState.Document);
             }
@@ -91,11 +90,6 @@ namespace CodeBuilder
                 frmProperty = new frmProperty();
                 frmProperty.CloseAct = () => frmProperty = null;
                 frmProperty.Show(dockMgr, DockState.DockRight);
-
-                if (frmTable != null)
-                {
-                    frmProperty.SetObject(frmTable.GetSelectedObject());
-                }
             }
             else
             {
@@ -122,12 +116,19 @@ namespace CodeBuilder
                 frmTemplate.Activate();
             }
         }
-        
+
         private void OpenProfileForm()
         {
             if (frmProfile == null)
             {
                 frmProfile = new frmProfile();
+                frmProfile.PropertyChangeAct = () =>
+                {
+                    if (frmTable != null)
+                    {
+                        frmTable.ApplyProfile();
+                    }
+                };
                 frmProfile.CloseAct = () => frmProfile = null;
                 frmProfile.Show(dockMgr, DockState.DockRight);
             }
@@ -230,9 +231,26 @@ namespace CodeBuilder
             }
         }
 
+        private void InitializeToolMenus()
+        {
+            var providers = Imports.GetServices<IToolProvider>();
+            foreach (var p in providers)
+            {
+                var sItem = new ToolStripMenuItem();
+                sItem.Text = p.Name;
+                sItem.Name = p.Name;
+                sItem.Tag = p;
+
+                sItem.Click += toolProvider_Click;
+
+                mnuTool.DropDownItems.Add(sItem);
+            }
+        }
+
         private void LoadSourceStruct(ISourceProvider provider)
         {
-            var tables = provider.Preview();
+            var option = new SourceOption { View = Config.Instance.Source_View };
+            var tables = provider.Preview(option);
             if (tables == null)
             {
                 return;
@@ -388,6 +406,21 @@ namespace CodeBuilder
             }
         }
 
+        void toolProvider_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            if (item == null || item.Tag == null)
+            {
+                return;
+            }
+
+            var provider = item.Tag as IToolProvider;
+            if (provider != null)
+            {
+                provider.Show(dockMgr);
+            }
+        }
+
         private void BuildCode()
         {
             if (frmTable == null)
@@ -504,6 +537,16 @@ namespace CodeBuilder
             }
         }
 
+        private void mnuOption_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmOption())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+        }
+
         private void mnuBuild_Click(object sender, EventArgs e)
         {
             BuildCode();
@@ -558,12 +601,11 @@ namespace CodeBuilder
 
         private void mnuTopic_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(this, "http://www.fireasy.cn/codebuilder/help");
+            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "help.pdf"));
         }
 
         private void mnuUpdate_Click(object sender, EventArgs e)
         {
-            var processName = Process.GetCurrentProcess().ProcessName;
             Process.Start("AutoUpdate.exe", "/T");
         }
 

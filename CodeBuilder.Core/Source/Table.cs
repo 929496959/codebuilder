@@ -24,6 +24,13 @@ namespace CodeBuilder.Core.Source
             ForeignKeys = new List<Reference>();
             Columns = new List<Column>();
             PrimaryKeys = new List<Column>();
+            IsView = IsView;
+        }
+
+        public Table(bool isView)
+            : this()
+        {
+            IsView = isView;
         }
 
         [Description("表的名称。")]
@@ -51,6 +58,9 @@ namespace CodeBuilder.Core.Source
             }
         }
 
+        [Description("排列的序号。")]
+        public int Index { get; set; }
+
         [Browsable(false)]
         public List<Reference> ForeignKeys { get; private set; }
 
@@ -74,6 +84,9 @@ namespace CodeBuilder.Core.Source
         [DisGenerate]
         [Browsable(false)]
         public Host Host { get; set; }
+
+        [DisGenerate]
+        public bool IsView { get; private set; }
 
         public override string ToString()
         {

@@ -1,8 +1,7 @@
 ﻿
 using Fireasy.Data;
-using System.Collections.Generic;
+using Fireasy.Data.Provider;
 using System.Windows.Forms;
-using Fireasy.Common.Extensions;
 
 namespace CodeBuilder.Database
 {
@@ -13,9 +12,17 @@ namespace CodeBuilder.Database
             InitializeComponent();
         }
 
+        protected override IProvider Provider
+        {
+            get { return SQLiteProvider.Instance; }
+        }
+
         protected override void ParseConnectionStr(ConnectionProperties properties)
         {
-            txtFile.Text = properties.TryGetValue("data source");
+            if (!string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                txtFile.Text = properties.TryGetValue("data source");
+            }
         }
 
         protected override string BuildConnectionStr()

@@ -23,8 +23,39 @@ namespace <#= host.Profile.Namespace #>.Models
     /// <#= table.Description #>  µÃÂ¿‡°£
     /// </summary>
     [MetadataType(typeof(<#= table.ClassName #>Metadata))]
-    public partial class <#= table.ClassName #>
+<#
+if(table.IsTree)
+{
+#>
+    [EntityTreeMapping(InnerSign = "Code")]
+<#
+}
+#>
+    public partial class <#= table.ClassName #> <#= table.IsTree ? ": ITreeNode<" + table.ClassName + ">" : string.Empty #>
     {
+<#
+if(table.IsTree)
+{
+#>
+        public System.Collections.Generic.List<SystemModule> Children { get; set; }
+
+        System.Collections.IList ITreeNode.Children
+        {
+            get { return Children; }
+            set { Children = (System.Collections.Generic.List<<#= table.ClassName #>>)value; }
+        }
+
+        public bool HasChildren { get; set; }
+
+        public object ITreeNode.Id
+        {
+            get { return <#= GetPrimaryKey(table) #>; }
+        }
+
+        public bool IsLoaded { get; set; }
+<#
+}
+#>
     }
 
 

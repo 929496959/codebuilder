@@ -6,6 +6,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Fireasy.Common.Serialization;
 using System.Collections.Generic;
 
 namespace CodeBuilder.Core.Template
@@ -25,6 +26,7 @@ namespace CodeBuilder.Core.Template
         /// <summary>
         /// 获取或设置标识。
         /// </summary>
+        [NoTextSerializable]
         public string Id { get; set; }
 
         /// <summary>
@@ -35,6 +37,7 @@ namespace CodeBuilder.Core.Template
         /// <summary>
         /// 获取或设置配置文件名称。
         /// </summary>
+        [NoTextSerializable]
         public string ConfigFileName { get; set; }
 
         /// <summary>
@@ -65,6 +68,29 @@ namespace CodeBuilder.Core.Template
         /// <summary>
         /// 获取资源列表。
         /// </summary>
+        [NoTextSerializable]
         public List<string> Resources { get; private set; }
+
+        public List<PartitionDefinition> GetAllPartitions()
+        {
+            var result = new List<PartitionDefinition>();
+            GetGroupPartitions(Groups, result);
+
+            foreach (var part in Partitions)
+            {
+                result.Add(part);
+            }
+
+            return result;
+        }
+
+        private void GetGroupPartitions(List<GroupDefinition> groups, List<PartitionDefinition> result)
+        {
+            foreach (var group in groups)
+            {
+                result.AddRange(group.Partitions);
+                GetGroupPartitions(group.Groups, result);
+            }
+        }
     }
 }

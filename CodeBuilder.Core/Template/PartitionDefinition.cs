@@ -6,6 +6,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Fireasy.Common.Serialization;
 using System.IO;
 using System.Text;
 
@@ -29,6 +30,7 @@ namespace CodeBuilder.Core.Template
         /// <summary>
         /// 获取或设置模板文件路径。
         /// </summary>
+        [NoTextSerializable]
         public string FilePath { get; set; }
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace CodeBuilder.Core.Template
         /// <summary>
         /// 获取模板文件的内容。
         /// </summary>
+        [NoTextSerializable]
         public string Content
         {
             get

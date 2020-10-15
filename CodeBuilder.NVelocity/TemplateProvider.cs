@@ -25,7 +25,7 @@ namespace CodeBuilder.NVelocity
     {
         static TemplateProvider()
         {
-            FileTypeHelper.Register(".tt", "TT模板文件|*.tt");
+            FileTypeHelper.Register(".vm", "Velocity模板文件|*.vm");
         }
 
         public TemplateProvider()
@@ -82,6 +82,7 @@ namespace CodeBuilder.NVelocity
 
         private List<GenerateResult> GenerateInternal(TemplateOption option, List<Table> tables, CodeGenerateHandler handler)
         {
+            var result = new List<GenerateResult>();
             var references = new List<Reference>();
             foreach (var table in tables)
             {
@@ -114,12 +115,18 @@ namespace CodeBuilder.NVelocity
                     using (var writer = new StringWriter())
                     {
                         engine.MergeTemplate(info.Name, "gb2312", context, writer);
-                        MessageBoxHelper.ShowExclamation(writer.ToString());
+                        var r = new GenerateResult(part, writer.ToString());
+                        if (option.WriteToDisk && r.WriteToDisk)
+                        {
+                            PartitionWriter.Write(r, table, option.Profile, option.OutputDirectory);
+                        }
+
+                        result.Add(r);
                     }
                 }
             }
 
-            return null;
+            return result;
         }
     }
 }

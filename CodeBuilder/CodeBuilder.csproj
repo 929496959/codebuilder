@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CodeBuilder</RootNamespace>
     <AssemblyName>CodeBuilder</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>App.ico</ApplicationIcon>
@@ -48,6 +50,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -58,6 +61,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +72,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -78,6 +83,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fireasy.Common">
@@ -113,6 +119,18 @@
     <Compile Include="DockForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmTemplateCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTemplateCopy.Designer.cs">
+      <DependentUpon>frmTemplateCopy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TipPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TipPanel.Designer.cs">
+      <DependentUpon>TipPanel.cs</DependentUpon>
+    </Compile>
     <Content Include="extensions\profile\sample.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -120,6 +138,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="extensions\schema\sample.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="extensions\schema\tree.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="FieldCacheMenuItem.cs">
@@ -148,6 +169,12 @@
     </Compile>
     <Compile Include="frmNewCode.Designer.cs">
       <DependentUpon>frmNewCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOption.Designer.cs">
+      <DependentUpon>frmOption.cs</DependentUpon>
     </Compile>
     <Compile Include="frmOutput.cs">
       <SubType>Form</SubType>
@@ -197,10 +224,18 @@
     <Compile Include="frmTemplateEditor.Designer.cs">
       <DependentUpon>frmTemplateEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTip.Designer.cs">
+      <DependentUpon>frmTip.cs</DependentUpon>
+    </Compile>
     <Compile Include="IChangeManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\view.png" />
     <Content Include="templates\T4\asp.net mvc\business_lay.tt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -719,6 +754,9 @@
     <EmbeddedResource Include="frmNewCode.resx">
       <DependentUpon>frmNewCode.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOption.resx">
+      <DependentUpon>frmOption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmOutput.resx">
       <DependentUpon>frmOutput.cs</DependentUpon>
     </EmbeddedResource>
@@ -740,8 +778,14 @@
     <EmbeddedResource Include="frmEditor.resx">
       <DependentUpon>frmEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTemplateCopy.resx">
+      <DependentUpon>frmTemplateCopy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTemplateEditor.resx">
       <DependentUpon>frmTemplateEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTip.resx">
+      <DependentUpon>frmTip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -753,6 +797,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TipPanel.resx">
+      <DependentUpon>TipPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <Content Include="config\app.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

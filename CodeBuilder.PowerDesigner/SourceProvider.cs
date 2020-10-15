@@ -25,7 +25,7 @@ namespace CodeBuilder.PowerDesigner
             get { return "Power Designer"; }
         }
 
-        public List<Table> Preview()
+        public List<Table> Preview(SourceOption option)
         {
             using (var dialog = new OpenFileDialog())
             {

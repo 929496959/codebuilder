@@ -272,7 +272,7 @@ namespace CodeBuilder
 
         private void SaveTemplate(string root)
         {
-            var option = new JsonSerializeOption { Indent = true, ExclusiveNames = new[] { "Id", "ConfigFileName", "FilePath", "Content", "Resources" } };
+            var option = new JsonSerializeOption { Indent = true };
             option.Converters.Add(new PartLoopConverter());
             var json = new JsonSerializer(option);
             var content = json.Serialize(Template);
@@ -302,9 +302,9 @@ namespace CodeBuilder
             return type == typeof(PartitionLoop);
         }
 
-        public override string WriteJson(JsonSerializer serializer, object obj)
+        public override void WriteJson(JsonSerializer serializer, JsonWriter writer, object obj)
         {
-            return "\"" + ((PartitionLoop)obj).ToString() + "\"";
+            writer.WriteRaw("\"" + ((PartitionLoop)obj).ToString() + "\"");
         }
     }
 }

@@ -33,7 +33,7 @@ namespace CodeBuilder.Database
             get { return "Database"; }
         }
 
-        public List<Table> Preview()
+        public List<Table> Preview(SourceOption option)
         {
             IEnumerable<Table> tables = null;
             using (var frm = new frmSourceMgr())
@@ -41,7 +41,7 @@ namespace CodeBuilder.Database
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     con = frm.DbConStr;
-                    tables = OpenDb();
+                    tables = OpenDb(option);
                 }
             }
 
@@ -73,23 +73,23 @@ namespace CodeBuilder.Database
                 return null;
             }
         }
-        
+
         public List<string> GetHistory()
         {
             return new List<string>();
         }
 
-        private IEnumerable<Table> OpenDb()
+        private IEnumerable<Table> OpenDb(SourceOption option)
         {
             try
             {
                 var provider = ProviderHelper.GetDefinedProviderInstance(con.Type);
                 using (var db = new Fireasy.Data.Database(con.ConnectionString, provider))
                 {
-                    var schemaName = db.Provider.GetConnectionParameter(db.ConnectionString).Schema;
                     var schema = db.Provider.GetService<Schema.ISchemaProvider>();
-                    var tables = schema.GetSchemas<Schema.Table>(db, s => s.Schema == schemaName);
-                    return ConvertSchemaTables(tables);
+                    var tables = schema.GetSchemas<Schema.Table>(db).ToList();
+                    var views = option.View ? schema.GetSchemas<Schema.View>(db).ToList() : new List<Schema.View>();
+                    return ConvertSchemaTables(tables, views);
                 }
             }
             catch (Exception exp)
@@ -106,9 +106,8 @@ namespace CodeBuilder.Database
             using (var db = new Fireasy.Data.Database(con.ConnectionString, provider))
             {
                 var providerName = db.Provider.GetType().Name;
-                var schemaName = db.Provider.GetConnectionParameter(db.ConnectionString).Schema;
                 var schema = db.Provider.GetService<Schema.ISchemaProvider>();
-                var foreignKeys = schema.GetSchemas<Schema.ForeignKey>(db, s => s.Schema == schemaName).ToList();
+                var foreignKeys = schema.GetSchemas<Schema.ForeignKey>(db).ToList();
                 var dbTypes = schema.GetSchemas<Schema.DataType>(db).ToList();
                 var tableCount = tables.Count;
                 var index = 0;
@@ -129,12 +128,21 @@ namespace CodeBuilder.Database
 
                     if (processHandler != null)
                     {
-                        processHandler(t.Name, calc(++index));
+                        processHandler.Invoke(t.Name, calc(++index));
                     }
 
-                    var columns = schema.GetSchemas<Schema.Column>(db, s => s.Schema == schemaName && s.TableName == t.Name);
-                    t.Columns.AddRange(ConvertSchemaColumns(t, columns, dbTypes, providerName));
-                    result.Add(t);
+                    if (t.IsView)
+                    {
+                        var columns = schema.GetSchemas<Schema.ViewColumn>(db, s => s.ViewName == t.Name);
+                        t.Columns.AddRange(ConvertSchemaViewColumns(t, columns, dbTypes, providerName));
+                        result.Add(t);
+                    }
+                    else
+                    {
+                        var columns = schema.GetSchemas<Schema.Column>(db, s => s.TableName == t.Name);
+                        t.Columns.AddRange(ConvertSchemaColumns(t, columns, dbTypes, providerName));
+                        result.Add(t);
+                    }
                     host.Attach(t);
                 }
 
@@ -144,18 +152,27 @@ namespace CodeBuilder.Database
             return result;
         }
 
-        private IEnumerable<Table> ConvertSchemaTables(IEnumerable<Schema.Table> tables)
+        private IEnumerable<Table> ConvertSchemaTables(IEnumerable<Schema.Table> tables, IEnumerable<Schema.View> views)
         {
+            var index = 0;
             foreach (var t in tables)
             {
-                if (t.Type.ToUpper().Contains("SYS"))
-                {
-                    continue;
-                }
-
                 var table = SchemaExtensionManager.Build<Table>();
                 table.Name = t.Name;
                 table.Description = t.Description ?? string.Empty;
+                table.Index = ++index;
+
+                InitializerUnity.Initialize(table);
+
+                yield return table;
+            }
+
+            foreach (var v in views)
+            {
+                var table = SchemaExtensionManager.Build<Table>(true);
+                table.Name = v.Name;
+                table.Description = v.Description ?? string.Empty;
+                table.Index = ++index;
 
                 InitializerUnity.Initialize(table);
 
@@ -165,6 +182,7 @@ namespace CodeBuilder.Database
 
         private IEnumerable<Column> ConvertSchemaColumns(Table table, IEnumerable<Schema.Column> columns, List<Schema.DataType> dbTypes, string providerName)
         {
+            var index = 0;
             foreach (var c in columns)
             {
                 if (Processor.IsCancellationRequested())
@@ -184,6 +202,39 @@ namespace CodeBuilder.Database
                 column.Precision = c.NumericPrecision;
                 column.IsPrimaryKey = c.IsPrimaryKey;
                 column.DbType = ConvertDbType(column, dbTypes, providerName);
+                column.DefaultValue = c.Default.ToStringSafely();
+                column.ColumnType = c.ColumnType;
+                column.Index = ++index;
+
+                InitializerUnity.Initialize(column);
+
+                yield return column;
+            }
+        }
+
+        private IEnumerable<Column> ConvertSchemaViewColumns(Table table, IEnumerable<Schema.ViewColumn> columns, List<Schema.DataType> dbTypes, string providerName)
+        {
+            var index = 0;
+            foreach (var c in columns)
+            {
+                if (Processor.IsCancellationRequested())
+                {
+                    yield break;
+                }
+
+                var column = SchemaExtensionManager.Build<Column>(table);
+
+                column.Name = c.Name;
+                column.AutoIncrement = c.Autoincrement;
+                column.Description = c.Description ?? string.Empty;
+                column.IsNullable = c.IsNullable;
+                column.DataType = c.DataType;
+                column.Length = c.Length;
+                column.Scale = c.NumericScale;
+                column.Precision = c.NumericPrecision;
+                column.IsPrimaryKey = c.IsPrimaryKey;
+                column.DbType = ConvertDbType(column, dbTypes, providerName);
+                column.Index = ++index;
 
                 InitializerUnity.Initialize(column);
 
@@ -211,7 +262,7 @@ namespace CodeBuilder.Database
                 {
                     var pkColumn = pkTable.Columns.FirstOrDefault(s => s.Name.Equals(sfk.PKColumn, StringComparison.CurrentCultureIgnoreCase));
                     var fkColumn = fkTable.Columns.FirstOrDefault(s => s.Name.Equals(sfk.ColumnName, StringComparison.CurrentCultureIgnoreCase));
-                    
+
                     if (pkColumn != null && fkColumn != null)
                     {
                         var fk = SchemaExtensionManager.Build<Reference>(pkTable, pkColumn, fkTable, fkColumn);
@@ -226,8 +277,7 @@ namespace CodeBuilder.Database
         {
             if (providerName == "OleDbProvider")
             {
-                var oleDbType = (OleDbType)Convert.ToInt32(column.DataType);
-                column.DataType = oleDbType.ToString();
+                var oleDbType = (OleDbType)Enum.Parse(typeof(OleDbType), column.DataType);
                 switch (oleDbType)
                 {
                     case OleDbType.VarChar:

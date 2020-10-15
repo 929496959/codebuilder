@@ -106,7 +106,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(191, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Copyright © 2010 - 2017 Fireasy";
+            this.label2.Text = "Copyright © 2010 - 2020 Fireasy";
             // 
             // label3
             // 
