@@ -182,6 +182,7 @@ namespace CodeBuilder.T4
                     sb.AppendLine(error.ErrorText);
                 }
 
+                Console.WriteLine(sb.ToString());
                 MessageBoxHelper.ShowError(sb.ToString());
                 return null;
             }

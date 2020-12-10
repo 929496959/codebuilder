@@ -31,6 +31,8 @@ namespace CodeBuilder
 
         public string Encoding { get; set; }
 
+        public string Profile { get; set; }
+
         public bool CheckUpdate { get; set; }
 
         public bool Source_View { get; set; }

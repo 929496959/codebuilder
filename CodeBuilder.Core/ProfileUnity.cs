@@ -16,15 +16,17 @@ namespace CodeBuilder.Core
 {
     public class ProfileUnity
     {
-        public static Profile LoadCurrent()
+        public static Profile LoadCurrent(string name)
         {
-            var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "profile.cfg");
+            var fileName = GetProfileFile(name);
+
             return LoadFile(fileName);
         }
 
-        public static void SaveFile(Profile profile)
+        public static void SaveFile(string name, Profile profile)
         {
-            var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "profile.cfg");
+            var fileName = GetProfileFile(name);
+
             SaveFile(profile, fileName);
         }
 
@@ -54,6 +56,20 @@ namespace CodeBuilder.Core
             var json = new JsonSerializer(option);
             var content = json.Serialize(profile);
             File.WriteAllText(fileName, content, Encoding.Default);
+        }
+
+        private static string GetProfileFile(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "profiles", name);
+                if (File.Exists(fileName))
+                {
+                    return fileName;
+                }
+            }
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "profile.cfg");
         }
     }
 }

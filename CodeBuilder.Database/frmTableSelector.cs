@@ -20,6 +20,7 @@ namespace CodeBuilder.Database
     public partial class frmTableSelector : Form
     {
         private List<Table> tables;
+        private List<Table> saved;
 
         public frmTableSelector()
         {
@@ -31,6 +32,7 @@ namespace CodeBuilder.Database
             : this()
         {
             this.tables = tables.ToList();
+            this.saved = new List<Table>();
             FillTables(string.Empty);
         }
 
@@ -59,7 +61,7 @@ namespace CodeBuilder.Database
             {
                 var item = new TreeListItem();
                 item.Tag = t;
-                item.Image = (t as Table).IsView ? Properties.Resources.view : Properties.Resources.table;
+                item.Image = t.IsView ? Properties.Resources.view : Properties.Resources.table;
                 lstTable.Items.Add(item);
 
                 item.Cells[0].Value = t.Name;
@@ -101,9 +103,12 @@ namespace CodeBuilder.Database
         private void btnOk_Click(object sender, EventArgs e)
         {
             Selected = new List<Table>();
-            foreach (var item in lstTable.Items)
+
+            var items = lstSaved.Visible ? lstSaved.Items : lstTable.Items;
+
+            foreach (var item in items)
             {
-                if (item.Checked)
+                if (item.Checked && !Selected.Contains((Table)item.Tag))
                 {
                     Selected.Add((Table)item.Tag);
                 }
@@ -115,8 +120,48 @@ namespace CodeBuilder.Database
                 return;
             }
 
-            DialogResult = System.Windows.Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            foreach (var item in lstTable.Items)
+            {
+                var table = (Table)item.Tag;
+                if (item.Checked && !saved.Contains(table))
+                {
+                    var item1 = new TreeListItem();
+                    item1.Tag = table;
+                    item1.Image = table.IsView ? Properties.Resources.view : Properties.Resources.table;
+                    lstSaved.Items.Add(item1);
+
+                    item1.Cells[0].Value = table.Name;
+                    item1.Cells[1].Value = table.Description;
+                    item1.Checked = true;
+
+                    saved.Add(table);
+                }
+            }
+
+            if (lstSaved.Items.Count > 0 && !lstSaved.Visible)
+            {
+                Height += 200;
+                lstTable.Height = Height - lstSaved.Height - 185;
+                btnAll.Top = btnInv.Top = btnSave.Top = lstSaved.Top - btnSave.Height - 10;
+                lstSaved.Visible = btnClear.Visible = true;
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            saved.Clear();
+            lstSaved.Items.Clear();
+
+            Height -= 200;
+            lstTable.Height = Height - 140;
+            btnAll.Top = btnInv.Top = btnSave.Top = btnOk.Top;
+            lstSaved.Visible = btnClear.Visible = false;
         }
     }
 }

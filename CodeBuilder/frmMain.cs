@@ -41,7 +41,9 @@ namespace CodeBuilder
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            StaticUnity.Profile = ProfileUnity.LoadCurrent();
+            StaticUnity.Profile = ProfileUnity.LoadCurrent(Config.Instance.Profile);
+            StaticUnity.Main = this;
+
             InitializeSourceMenus();
             InitializeTemplateMenus();
             InitializeToolMenus();
@@ -52,11 +54,6 @@ namespace CodeBuilder
             OpenProfileForm();
             OpenTemplateForm();
             frmProperty.Activate();
-
-            if (Config.Instance.CheckUpdate)
-            {
-                Process.Start("AutoUpdate.exe");
-            }
         }
 
         private frmTable GetTableForm()
@@ -167,6 +164,8 @@ namespace CodeBuilder
 
         private void InitializeTemplateMenus()
         {
+            mnuTemplate.DropDownItems.Clear();
+
             var providers = Imports.GetServices<ITemplateProvider>();
             foreach (var p in providers)
             {
@@ -201,6 +200,14 @@ namespace CodeBuilder
 
                 mnuTemplate.DropDownItems.Add(sItem);
             }
+
+            mnuTemplate.DropDownItems.Add(new ToolStripSeparator());
+            var mnuReload = new ToolStripMenuItem("重新载入模板");
+            mnuTemplate.DropDownItems.Add(mnuReload);
+            mnuReload.Click += (o1, e1) =>
+            {
+                InitializeTemplateMenus();
+            };
         }
 
         private void ReInitializeTemplateSubMenus()

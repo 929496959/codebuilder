@@ -31,7 +31,7 @@ namespace CodeBuilder.Core.Template
                 Directory.CreateDirectory(dir);
             }
 
-            File.WriteAllText(path, result.Content, Encoding.Default);
+            File.WriteAllText(path, result.Content, StaticUnity.Encoding);
         }
     }
 }

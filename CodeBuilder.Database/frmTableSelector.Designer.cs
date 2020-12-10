@@ -38,27 +38,36 @@
             this.btnFilter = new System.Windows.Forms.Button();
             this.txtKeyword = new Fireasy.Windows.Forms.ComplexTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.lstSaved = new Fireasy.Windows.Forms.TreeList();
             this.SuspendLayout();
             // 
             // treeListColumn1
             // 
+            this.treeListColumn1.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn1.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn1.Formatter = null;
             this.treeListColumn1.Image = null;
             this.treeListColumn1.Text = "名称";
-            this.treeListColumn1.Width = 200;
+            this.treeListColumn1.Validator = null;
+            this.treeListColumn1.Width = 250;
             // 
             // treeListColumn2
             // 
+            this.treeListColumn2.CellForeColor = System.Drawing.Color.Empty;
             this.treeListColumn2.ForeColor = System.Drawing.Color.Empty;
+            this.treeListColumn2.Formatter = null;
             this.treeListColumn2.Image = null;
             this.treeListColumn2.Text = "备注";
+            this.treeListColumn2.Validator = null;
             this.treeListColumn2.Width = 200;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(393, 423);
+            this.btnCancel.Location = new System.Drawing.Point(458, 428);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -68,7 +77,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(312, 423);
+            this.btnOk.Location = new System.Drawing.Point(377, 428);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
@@ -79,7 +88,7 @@
             // btnInv
             // 
             this.btnInv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnInv.Location = new System.Drawing.Point(99, 423);
+            this.btnInv.Location = new System.Drawing.Point(99, 428);
             this.btnInv.Name = "btnInv";
             this.btnInv.Size = new System.Drawing.Size(75, 23);
             this.btnInv.TabIndex = 8;
@@ -90,7 +99,7 @@
             // btnAll
             // 
             this.btnAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAll.Location = new System.Drawing.Point(18, 423);
+            this.btnAll.Location = new System.Drawing.Point(18, 428);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(75, 23);
             this.btnAll.TabIndex = 7;
@@ -107,20 +116,24 @@
             this.lstTable.Columns.AddRange(new Fireasy.Windows.Forms.TreeListColumn[] {
             this.treeListColumn1,
             this.treeListColumn2});
+            this.lstTable.DataSource = null;
             this.lstTable.Footer = null;
             this.lstTable.GroupFont = new System.Drawing.Font("宋体", 12F);
+            this.lstTable.HandCursor = false;
             this.lstTable.Location = new System.Drawing.Point(18, 50);
             this.lstTable.Name = "lstTable";
             this.lstTable.NoneItemText = "没有可显示的数据";
             this.lstTable.RowNumberIndex = 0;
             this.lstTable.ShowCheckBoxes = true;
             this.lstTable.ShowRowNumber = true;
-            this.lstTable.Size = new System.Drawing.Size(450, 355);
+            this.lstTable.Size = new System.Drawing.Size(514, 363);
+            this.lstTable.SortKey = null;
+            this.lstTable.SortOrder = System.Windows.Forms.SortOrder.None;
             this.lstTable.TabIndex = 3;
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(321, 13);
+            this.btnFilter.Location = new System.Drawing.Point(377, 14);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(75, 23);
             this.btnFilter.TabIndex = 11;
@@ -132,9 +145,10 @@
             // 
             this.txtKeyword.Location = new System.Drawing.Point(92, 14);
             this.txtKeyword.Name = "txtKeyword";
-            this.txtKeyword.Size = new System.Drawing.Size(223, 21);
+            this.txtKeyword.Size = new System.Drawing.Size(279, 21);
             this.txtKeyword.TabIndex = 9;
             this.txtKeyword.WaterMarkText = "输入完成后按回车";
+            this.txtKeyword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtKeyword_KeyDown);
             // 
             // label1
             // 
@@ -145,11 +159,61 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "正则表达式:";
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave.Location = new System.Drawing.Point(195, 428);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "暂存(&S)";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Location = new System.Drawing.Point(19, 428);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 13;
+            this.btnClear.Text = "清空(&C)";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Visible = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // lstSaved
+            // 
+            this.lstSaved.AlternateBackColor = System.Drawing.Color.Empty;
+            this.lstSaved.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSaved.Columns.AddRange(new Fireasy.Windows.Forms.TreeListColumn[] {
+            this.treeListColumn1,
+            this.treeListColumn2});
+            this.lstSaved.DataSource = null;
+            this.lstSaved.Footer = null;
+            this.lstSaved.GroupFont = new System.Drawing.Font("宋体", 12F);
+            this.lstSaved.HandCursor = false;
+            this.lstSaved.Location = new System.Drawing.Point(18, 236);
+            this.lstSaved.Name = "lstSaved";
+            this.lstSaved.NoneItemText = "没有可显示的数据";
+            this.lstSaved.RowNumberIndex = 0;
+            this.lstSaved.ShowCheckBoxes = true;
+            this.lstSaved.ShowRowNumber = true;
+            this.lstSaved.Size = new System.Drawing.Size(514, 177);
+            this.lstSaved.SortKey = null;
+            this.lstSaved.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.lstSaved.TabIndex = 14;
+            this.lstSaved.Visible = false;
+            // 
             // frmTableSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 464);
+            this.ClientSize = new System.Drawing.Size(549, 463);
+            this.Controls.Add(this.lstSaved);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.txtKeyword);
             this.Controls.Add(this.label1);
@@ -182,5 +246,8 @@
         private System.Windows.Forms.Button btnFilter;
         private Fireasy.Windows.Forms.ComplexTextBox txtKeyword;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnClear;
+        private Fireasy.Windows.Forms.TreeList lstSaved;
     }
 }

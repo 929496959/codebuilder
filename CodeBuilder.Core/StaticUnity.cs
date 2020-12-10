@@ -7,9 +7,9 @@
 // -----------------------------------------------------------------------
 
 using CodeBuilder.Core.Template;
-using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace CodeBuilder.Core
 {
@@ -20,6 +20,7 @@ namespace CodeBuilder.Core
         static StaticUnity()
         {
             DynamicAssemblies = new List<string>();
+            Encoding = Encoding.Default;
         }
 
         public static ITemplateProvider TemplateProvider
@@ -37,5 +38,11 @@ namespace CodeBuilder.Core
         public static List<string> DynamicAssemblies { get; set; }
 
         public static Profile Profile { get; set; }
+
+        public string ProfileName { get; set; }
+
+        public static Encoding Encoding { get; set; }
+
+        public static Form Main { get; set; }
     }
 }

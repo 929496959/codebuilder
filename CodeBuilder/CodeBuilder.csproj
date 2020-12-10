@@ -236,6 +236,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Resources\help.png" />
     <None Include="Resources\view.png" />
+    <None Include="Resources\defalt.png" />
     <Content Include="templates\T4\asp.net mvc\business_lay.tt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -32,6 +32,8 @@
             this.tlbOpen = new System.Windows.Forms.ToolStripButton();
             this.tlbSave = new System.Windows.Forms.ToolStripButton();
             this.tlbSaveAs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tlbSetDefault = new System.Windows.Forms.ToolStripButton();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -42,7 +44,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlbOpen,
             this.tlbSave,
-            this.tlbSaveAs});
+            this.tlbSaveAs,
+            this.toolStripSeparator1,
+            this.tlbSetDefault});
             this.toolStrip1.Location = new System.Drawing.Point(2, 2);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(351, 25);
@@ -78,6 +82,21 @@
             this.tlbSaveAs.Size = new System.Drawing.Size(23, 22);
             this.tlbSaveAs.Text = "另存为文件";
             this.tlbSaveAs.Click += new System.EventHandler(this.tlbSaveAs_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tlbSetDefault
+            // 
+            this.tlbSetDefault.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tlbSetDefault.Image = global::CodeBuilder.Properties.Resources.defalt;
+            this.tlbSetDefault.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlbSetDefault.Name = "tlbSetDefault";
+            this.tlbSetDefault.Size = new System.Drawing.Size(23, 22);
+            this.tlbSetDefault.Text = "设为默认";
+            this.tlbSetDefault.Click += new System.EventHandler(this.tlbSetDefault_Click);
             // 
             // propertyGrid1
             // 
@@ -123,5 +142,7 @@
         private System.Windows.Forms.ToolStripButton tlbSave;
         private System.Windows.Forms.ToolStripButton tlbSaveAs;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tlbSetDefault;
     }
 }

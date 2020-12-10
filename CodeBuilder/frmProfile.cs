@@ -44,6 +44,10 @@ namespace CodeBuilder
                     profileName = dialog.FileName;
                     StaticUnity.Profile = ProfileUnity.LoadFile(profileName);
                     propertyGrid1.SelectedObject = StaticUnity.Profile;
+                    if (PropertyChangeAct != null)
+                    {
+                        PropertyChangeAct();
+                    }
                 }
             }
         }
@@ -52,7 +56,7 @@ namespace CodeBuilder
         {
             if (string.IsNullOrEmpty(profileName))
             {
-                tlbSaveAs_Click(null, null);
+                ProfileUnity.SaveFile(Config.Instance.Profile, StaticUnity.Profile);
             }
             else
             {
@@ -80,6 +84,16 @@ namespace CodeBuilder
             if (PropertyChangeAct != null)
             {
                 PropertyChangeAct();
+            }
+        }
+
+        private void tlbSetDefault_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(profileName))
+            {
+                var info = new FileInfo(profileName).Name;
+                Config.Instance.Profile = info;
+                Config.Save();
             }
         }
     }

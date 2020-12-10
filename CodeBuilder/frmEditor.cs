@@ -135,7 +135,7 @@ namespace CodeBuilder
 
             try
             {
-                File.WriteAllText(FileName, txtEditor.Text, Encoding.Default);
+                File.WriteAllText(FileName, txtEditor.Text, StaticUnity.Encoding);
                 var info = new FileInfo(FileName);
                 caption = Text = info.Name;
                 lblFileName.Text = FileName;
@@ -157,7 +157,7 @@ namespace CodeBuilder
             var info = new FileInfo(FileName);
             try
             {
-                File.WriteAllText(FileName, txtEditor.Text, Encoding.Default);
+                File.WriteAllText(FileName, txtEditor.Text, StaticUnity.Encoding);
                 caption = Text = info.Name;
                 lblFileName.Text = FileName;
                 isChanged = false;

@@ -5,6 +5,7 @@
 //   (c) Copyright Fireasy. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
 using System.Windows.Forms;
 
 namespace CodeBuilder.Core
@@ -13,26 +14,36 @@ namespace CodeBuilder.Core
     {
         public static void ShowExclamation(string message)
         {
-            MessageBox.Show(message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            StaticUnity.Main.Invoke(new Action(() =>
+            {
+                MessageBox.Show(StaticUnity.Main, message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }));
         }
+
         public static void ShowError(string message)
         {
-            MessageBox.Show(message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            StaticUnity.Main.Invoke(new Action(() =>
+            {
+                MessageBox.Show(StaticUnity.Main, message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }));
         }
 
         public static void ShowInformation(string message)
         {
-            MessageBox.Show(message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            StaticUnity.Main.Invoke(new Action(() =>
+            {
+                MessageBox.Show(StaticUnity.Main, message, "CodeBuilder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }));
         }
 
         public static DialogResult ShowQuestion(string message)
         {
-            return MessageBox.Show(message, "CodeBuilder", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return MessageBox.Show(StaticUnity.Main, message, "CodeBuilder", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
         public static DialogResult ShowQuestionEx(string message)
         {
-            return MessageBox.Show(message, "CodeBuilder", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            return MessageBox.Show(StaticUnity.Main, message, "CodeBuilder", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
         }
     }
 }
